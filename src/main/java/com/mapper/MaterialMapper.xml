@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.MaterialMapper">
+  <resultMap id="BaseResultMap" type="com.model.Material">
+    <id column="ml_id" jdbcType="INTEGER" property="mlId" />
+    <result column="pi_id" jdbcType="INTEGER" property="piId" />
+    <result column="cl_id" jdbcType="INTEGER" property="clId" />
+    <result column="ml_code" jdbcType="CHAR" property="mlCode" />
+    <result column="pi_name" jdbcType="VARCHAR" property="piName" />
+    <result column="cl_code" jdbcType="CHAR" property="clCode" />
+    <result column="ml_date" jdbcType="TIMESTAMP" property="mlDate" />
+    <result column="ml_name" jdbcType="VARCHAR" property="mlName" />
+    <result column="ml_unit" jdbcType="VARCHAR" property="mlUnit" />
+    <result column="ml_do_design" jdbcType="DOUBLE" property="mlDoDesign" />
+    <result column="ml_do_change" jdbcType="DOUBLE" property="mlDoChange" />
+    <result column="ml_up_design" jdbcType="DOUBLE" property="mlUpDesign" />
+    <result column="ml_up_change" jdbcType="DOUBLE" property="mlUpChange" />
+    <result column="ml_down_design" jdbcType="DOUBLE" property="mlDownDesign" />
+    <result column="ml_down_change" jdbcType="DOUBLE" property="mlDownChange" />
+    <result column="ml_info" jdbcType="VARCHAR" property="mlInfo" />
+  </resultMap>
+  <resultMap id="BaseResultMapExtends" type="com.model.Material" extends="BaseResultMap">
+    <association property="partItem" javaType="com.model.PartItem"
+                 select="com.mapper.PartItemMapper.selectByPrimaryKey" column="pi_id">
+    </association>
+    <association property="costLayer" javaType="com.model.CostLayer"
+                 select="com.mapper.CostLayerMapper.selectByPrimaryKey" column="cl_id">
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.mlId != null">
+        ml_id = #{record.mlId,jdbcType=INTEGER}
+      </if>
+      <if test="record.piId != null">
+        and pi_id = #{record.piId,jdbcType=INTEGER}
+      </if>
+      <if test="record.mlCode != null">
+        and ml_code = #{record.mlCode,jdbcType=CHAR}
+      </if>
+      <if test="record.piName != null">
+        and pi_name = #{record.piName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.clId != null">
+        and cl_id = #{record.clId,jdbcType=INTEGER}
+      </if>
+      <if test="record.clCode != null">
+        and cl_code = #{record.clCode,jdbcType=CHAR}
+      </if>
+      <if test="record.mlDate != null">
+        and ml_date = #{record.mlDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.mlName != null">
+        and ml_name = #{record.mlName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.mlUnit != null">
+        and ml_unit = #{record.mlUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.mlDoDesign != null">
+        and ml_do_design = #{record.mlDoDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.mlDoChange != null">
+        and ml_do_change = #{record.mlDoChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.mlUpDesign != null">
+        and ml_up_design = #{record.mlUpDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.mlUpChange != null">
+        and ml_up_change = #{record.mlUpChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.mlDownDesign != null">
+        and ml_down_design = #{record.mlDownDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.mlDownChange != null">
+        and ml_down_change = #{record.mlDownChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.mlInfo != null">
+        and ml_info = #{record.mlInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.mlId != null">
+        ml_id like concat('%', #{record.mlId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piId != null">
+        and pi_id like concat('%', #{record.piId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.mlCode != null">
+        and ml_code like concat('%', #{record.mlCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.piName != null">
+        and pi_name like concat('%', #{record.piName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.clId != null">
+        and cl_id like concat('%', #{record.clId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.clCode != null">
+        and cl_code like concat('%', #{record.clCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.mlDate != null">
+        and ml_date like concat('%', #{record.mlDate,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.mlName != null">
+        and ml_name like concat('%', #{record.mlName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.mlUnit != null">
+        and ml_unit like concat('%', #{record.mlUnit,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.mlDoDesign != null">
+        and ml_do_design like concat('%', #{record.mlDoDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.mlDoChange != null">
+        and ml_do_change like concat('%', #{record.mlDoChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.mlUpDesign != null">
+        and ml_up_design like concat('%', #{record.mlUpDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.mlUpChange != null">
+        and ml_up_change like concat('%', #{record.mlUpChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.mlDownDesign != null">
+        and ml_down_design like concat('%', #{record.mlDownDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.mlDownChange != null">
+        and ml_down_change like concat('%', #{record.mlDownChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.mlInfo != null">
+        and ml_info like concat('%', #{record.mlInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by ml_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by ml_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    ml_id, pi_id, cl_id, ml_code, pi_name, cl_code, ml_date, ml_name, ml_unit, ml_do_design, 
+    ml_do_change, ml_up_design, ml_up_change, ml_down_design, ml_down_change, ml_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          ml_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.MaterialExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_material
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapExtends">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material
+    where ml_id = #{mlId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_material
+    where ml_id = (select min(ml_id) from tb_material)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_material
+    where ml_id = (select max(ml_id) from tb_material)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_material
+    where ml_id = #{mlId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.MaterialExample">
+    delete from tb_material
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="ml_id" keyProperty="mlId" parameterType="com.model.Material" useGeneratedKeys="true">
+    insert into tb_material (ml_id, pi_id, cl_id, ml_code,
+      pi_name, cl_code, ml_date, 
+      ml_name, ml_unit, ml_do_design, 
+      ml_do_change, ml_up_design, ml_up_change, 
+      ml_down_design, ml_down_change, ml_info
+      )
+    values (#{mlId,jdbcType=INTEGER}, #{piId,jdbcType=INTEGER}, #{clId,jdbcType=INTEGER}, #{mlCode,jdbcType=CHAR},
+      #{piName,jdbcType=VARCHAR}, #{clCode,jdbcType=CHAR}, #{mlDate,jdbcType=TIMESTAMP}, 
+      #{mlName,jdbcType=VARCHAR}, #{mlUnit,jdbcType=VARCHAR}, #{mlDoDesign,jdbcType=DOUBLE}, 
+      #{mlDoChange,jdbcType=DOUBLE}, #{mlUpDesign,jdbcType=DOUBLE}, #{mlUpChange,jdbcType=DOUBLE}, 
+      #{mlDownDesign,jdbcType=DOUBLE}, #{mlDownChange,jdbcType=DOUBLE}, #{mlInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="ml_id" keyProperty="mlId" parameterType="com.model.Material" useGeneratedKeys="true">
+    insert into tb_material
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mlId != null">
+        ml_id,
+      </if>
+      <if test="piId != null">
+        pi_id,
+      </if>
+      <if test="clId != null">
+        cl_id,
+      </if>
+      <if test="mlCode != null">
+        ml_code,
+      </if>
+      <if test="piName != null">
+        pi_name,
+      </if>
+      <if test="clCode != null">
+        cl_code,
+      </if>
+      <if test="mlDate != null">
+        ml_date,
+      </if>
+      <if test="mlName != null">
+        ml_name,
+      </if>
+      <if test="mlUnit != null">
+        ml_unit,
+      </if>
+      <if test="mlDoDesign != null">
+        ml_do_design,
+      </if>
+      <if test="mlDoChange != null">
+        ml_do_change,
+      </if>
+      <if test="mlUpDesign != null">
+        ml_up_design,
+      </if>
+      <if test="mlUpChange != null">
+        ml_up_change,
+      </if>
+      <if test="mlDownDesign != null">
+        ml_down_design,
+      </if>
+      <if test="mlDownChange != null">
+        ml_down_change,
+      </if>
+      <if test="mlInfo != null">
+        ml_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mlId != null">
+        #{mlId,jdbcType=INTEGER},
+      </if>
+      <if test="piId != null">
+        #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="mlCode != null">
+        #{mlCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="mlDate != null">
+        #{mlDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mlName != null">
+        #{mlName,jdbcType=VARCHAR},
+      </if>
+      <if test="mlUnit != null">
+        #{mlUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="mlDoDesign != null">
+        #{mlDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="mlDoChange != null">
+        #{mlDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="mlUpDesign != null">
+        #{mlUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="mlUpChange != null">
+        #{mlUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="mlDownDesign != null">
+        #{mlDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="mlDownChange != null">
+        #{mlDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="mlInfo != null">
+        #{mlInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.MaterialExample" resultType="java.lang.Long">
+    select count(*) from tb_material
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_material
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_material
+    <set>
+      <if test="record.mlId != null">
+        ml_id = #{record.mlId,jdbcType=INTEGER},
+      </if>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clId != null">
+        cl_id = #{record.clId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mlCode != null">
+        ml_code = #{record.mlCode,jdbcType=CHAR},
+      </if>
+      <if test="record.piName != null">
+        pi_name = #{record.piName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clCode != null">
+        cl_code = #{record.clCode,jdbcType=CHAR},
+      </if>
+      <if test="record.mlDate != null">
+        ml_date = #{record.mlDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mlName != null">
+        ml_name = #{record.mlName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlUnit != null">
+        ml_unit = #{record.mlUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlDoDesign != null">
+        ml_do_design = #{record.mlDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mlDoChange != null">
+        ml_do_change = #{record.mlDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mlUpDesign != null">
+        ml_up_design = #{record.mlUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mlUpChange != null">
+        ml_up_change = #{record.mlUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mlDownDesign != null">
+        ml_down_design = #{record.mlDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mlDownChange != null">
+        ml_down_change = #{record.mlDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mlInfo != null">
+        ml_info = #{record.mlInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_material
+    set ml_id = #{record.mlId,jdbcType=INTEGER},
+      pi_id = #{record.piId,jdbcType=INTEGER},
+      cl_id = #{record.clId,jdbcType=INTEGER},
+      ml_code = #{record.mlCode,jdbcType=CHAR},
+      pi_name = #{record.piName,jdbcType=VARCHAR},
+      cl_code = #{record.clCode,jdbcType=CHAR},
+      ml_date = #{record.mlDate,jdbcType=TIMESTAMP},
+      ml_name = #{record.mlName,jdbcType=VARCHAR},
+      ml_unit = #{record.mlUnit,jdbcType=VARCHAR},
+      ml_do_design = #{record.mlDoDesign,jdbcType=DOUBLE},
+      ml_do_change = #{record.mlDoChange,jdbcType=DOUBLE},
+      ml_up_design = #{record.mlUpDesign,jdbcType=DOUBLE},
+      ml_up_change = #{record.mlUpChange,jdbcType=DOUBLE},
+      ml_down_design = #{record.mlDownDesign,jdbcType=DOUBLE},
+      ml_down_change = #{record.mlDownChange,jdbcType=DOUBLE},
+      ml_info = #{record.mlInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Material">
+    update tb_material
+    <set>
+      <if test="piId != null">
+        pi_id = #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        cl_id = #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="mlCode != null">
+        ml_code = #{mlCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        pi_name = #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        cl_code = #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="mlDate != null">
+        ml_date = #{mlDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mlName != null">
+        ml_name = #{mlName,jdbcType=VARCHAR},
+      </if>
+      <if test="mlUnit != null">
+        ml_unit = #{mlUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="mlDoDesign != null">
+        ml_do_design = #{mlDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="mlDoChange != null">
+        ml_do_change = #{mlDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="mlUpDesign != null">
+        ml_up_design = #{mlUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="mlUpChange != null">
+        ml_up_change = #{mlUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="mlDownDesign != null">
+        ml_down_design = #{mlDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="mlDownChange != null">
+        ml_down_change = #{mlDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="mlInfo != null">
+        ml_info = #{mlInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ml_id = #{mlId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Material">
+    update tb_material
+    set pi_id = #{piId,jdbcType=INTEGER},
+      cl_id = #{clId,jdbcType=INTEGER},
+      ml_code = #{mlCode,jdbcType=CHAR},
+      pi_name = #{piName,jdbcType=VARCHAR},
+      cl_code = #{clCode,jdbcType=CHAR},
+      ml_date = #{mlDate,jdbcType=TIMESTAMP},
+      ml_name = #{mlName,jdbcType=VARCHAR},
+      ml_unit = #{mlUnit,jdbcType=VARCHAR},
+      ml_do_design = #{mlDoDesign,jdbcType=DOUBLE},
+      ml_do_change = #{mlDoChange,jdbcType=DOUBLE},
+      ml_up_design = #{mlUpDesign,jdbcType=DOUBLE},
+      ml_up_change = #{mlUpChange,jdbcType=DOUBLE},
+      ml_down_design = #{mlDownDesign,jdbcType=DOUBLE},
+      ml_down_change = #{mlDownChange,jdbcType=DOUBLE},
+      ml_info = #{mlInfo,jdbcType=VARCHAR}
+    where ml_id = #{mlId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_material
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_material
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_material
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_material
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_material
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_material
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_material
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_material
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_material
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_material
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_material
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_material
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_material
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_material
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_material
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_material
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CostLayerMapper">
+  <resultMap id="BaseResultMap" type="com.model.CostLayer">
+    <id column="cl_id" jdbcType="INTEGER" property="clId" />
+    <result column="cl_code" jdbcType="CHAR" property="clCode" />
+    <result column="cl_type" jdbcType="LONGVARCHAR" property="clType" />
+    <result column="cl_name" jdbcType="VARCHAR" property="clName" />
+    <result column="cl_unit" jdbcType="VARCHAR" property="clUnit" />
+    <result column="cl_budget" jdbcType="DOUBLE" property="clBudget" />
+    <result column="cl_dwg_design" jdbcType="DOUBLE" property="clDwgDesign" />
+    <result column="cl_dwg_change" jdbcType="DOUBLE" property="clDwgChange" />
+    <result column="cl_chk_design" jdbcType="DOUBLE" property="clChkDesign" />
+    <result column="cl_chk_change" jdbcType="DOUBLE" property="clChkChange" />
+    <result column="cl_act_design" jdbcType="DOUBLE" property="clActDesign" />
+    <result column="cl_act_change" jdbcType="DOUBLE" property="clActChange" />
+    <result column="cl_do_design" jdbcType="DOUBLE" property="clDoDesign" />
+    <result column="cl_do_change" jdbcType="DOUBLE" property="clDoChange" />
+    <result column="cl_up_design" jdbcType="DOUBLE" property="clUpDesign" />
+    <result column="cl_up_change" jdbcType="DOUBLE" property="clUpChange" />
+    <result column="cl_down_design" jdbcType="DOUBLE" property="clDownDesign" />
+    <result column="cl_down_change" jdbcType="DOUBLE" property="clDownChange" />
+    <result column="cl_info" jdbcType="VARCHAR" property="clInfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.clId != null">
+        cl_id = #{record.clId,jdbcType=INTEGER}
+      </if>
+      <if test="record.clCode != null">
+        and cl_code = #{record.clCode,jdbcType=CHAR}
+      </if>
+      <if test="record.clType != null">
+        and cl_type = #{record.clType,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="record.clName != null">
+        and cl_name = #{record.clName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.clUnit != null">
+        and cl_unit = #{record.clUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.clBudget != null">
+        and cl_budget = #{record.clBudget,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clDwgDesign != null">
+        and cl_dwg_design = #{record.clDwgDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clDwgChange != null">
+        and cl_dwg_change = #{record.clDwgChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clChkDesign != null">
+        and cl_chk_design = #{record.clChkDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clChkChange != null">
+        and cl_chk_change = #{record.clChkChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clActDesign != null">
+        and cl_act_design = #{record.clActDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clActChange != null">
+        and cl_act_change = #{record.clActChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clDoDesign != null">
+        and cl_do_design = #{record.clDoDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clDoChange != null">
+        and cl_do_change = #{record.clDoChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clUpDesign != null">
+        and cl_up_design = #{record.clUpDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clUpChange != null">
+        and cl_up_change = #{record.clUpChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clDownDesign != null">
+        and cl_down_design = #{record.clDownDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clDownChange != null">
+        and cl_down_change = #{record.clDownChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.clInfo != null">
+        and cl_info = #{record.clInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.clId != null">
+        cl_id like concat('%', #{record.clId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.clCode != null">
+        and cl_code like concat('%', #{record.clCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.clType != null">
+        and cl_type like concat('%', #{record.clType,jdbcType=LONGVARCHAR}, '%')
+      </if>
+      <if test="record.clName != null">
+        and cl_name like concat('%', #{record.clName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.clUnit != null">
+        and cl_unit like concat('%', #{record.clUnit,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.clBudget != null">
+        and cl_budget like concat('%', #{record.clBudget,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clDwgDesign != null">
+        and cl_dwg_design like concat('%', #{record.clDwgDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clDwgChange != null">
+        and cl_dwg_change like concat('%', #{record.clDwgChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clChkDesign != null">
+        and cl_chk_design like concat('%', #{record.clChkDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clChkChange != null">
+        and cl_chk_change like concat('%', #{record.clChkChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clActDesign != null">
+        and cl_act_design like concat('%', #{record.clActDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clActChange != null">
+        and cl_act_change like concat('%', #{record.clActChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clDoDesign != null">
+        and cl_do_design like concat('%', #{record.clDoDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clDoChange != null">
+        and cl_do_change like concat('%', #{record.clDoChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clUpDesign != null">
+        and cl_up_design like concat('%', #{record.clUpDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clUpChange != null">
+        and cl_up_change like concat('%', #{record.clUpChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clDownDesign != null">
+        and cl_down_design like concat('%', #{record.clDownDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clDownChange != null">
+        and cl_down_change like concat('%', #{record.clDownChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.clInfo != null">
+        and cl_info like concat('%', #{record.clInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by cl_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by cl_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    cl_id, cl_code, cl_type, cl_name, cl_unit, cl_budget, cl_dwg_design, cl_dwg_change,
+    cl_chk_design, cl_chk_change, cl_act_design, cl_act_change, cl_do_design, cl_do_change,
+    cl_up_design, cl_up_change, cl_down_design, cl_down_change, cl_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by cl_id asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by cl_id asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by cl_id asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by cl_id asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          cl_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.CostLayerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    where cl_id = #{clId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    where cl_id = (select min(cl_id) from tb_costlayer)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    where cl_id = (select max(cl_id) from tb_costlayer)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_costlayer
+    where cl_id = #{clId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.CostLayerExample">
+    delete from tb_costlayer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="cl_id" keyProperty="clId" parameterType="com.model.CostLayer" useGeneratedKeys="true">
+    insert into tb_costlayer (cl_id, cl_code, cl_type, cl_name,
+      cl_unit, cl_budget, cl_dwg_design,
+      cl_dwg_change, cl_chk_design, cl_chk_change,
+      cl_act_design, cl_act_change, cl_do_design,
+      cl_do_change, cl_up_design, cl_up_change,
+      cl_down_design, cl_down_change, cl_info
+      )
+    values (#{clId,jdbcType=INTEGER}, #{clCode,jdbcType=CHAR}, #{clType,jdbcType=LONGVARCHAR}, #{clName,jdbcType=VARCHAR},
+      #{clUnit,jdbcType=VARCHAR}, #{clBudget,jdbcType=DOUBLE}, #{clDwgDesign,jdbcType=DOUBLE},
+      #{clDwgChange,jdbcType=DOUBLE}, #{clChkDesign,jdbcType=DOUBLE}, #{clChkChange,jdbcType=DOUBLE},
+      #{clActDesign,jdbcType=DOUBLE}, #{clActChange,jdbcType=DOUBLE}, #{clDoDesign,jdbcType=DOUBLE},
+      #{clDoChange,jdbcType=DOUBLE}, #{clUpDesign,jdbcType=DOUBLE}, #{clUpChange,jdbcType=DOUBLE},
+      #{clDownDesign,jdbcType=DOUBLE}, #{clDownChange,jdbcType=DOUBLE}, #{clInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="cl_id" keyProperty="clId" parameterType="com.model.CostLayer" useGeneratedKeys="true">
+    insert into tb_costlayer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clId != null">
+        cl_id,
+      </if>
+      <if test="clCode != null">
+        cl_code,
+      </if>
+      <if test="clType != null">
+        cl_type,
+      </if>
+      <if test="clName != null">
+        cl_name,
+      </if>
+      <if test="clUnit != null">
+        cl_unit,
+      </if>
+      <if test="clBudget != null">
+        cl_budget,
+      </if>
+      <if test="clDwgDesign != null">
+        cl_dwg_design,
+      </if>
+      <if test="clDwgChange != null">
+        cl_dwg_change,
+      </if>
+      <if test="clChkDesign != null">
+        cl_chk_design,
+      </if>
+      <if test="clChkChange != null">
+        cl_chk_change,
+      </if>
+      <if test="clActDesign != null">
+        cl_act_design,
+      </if>
+      <if test="clActChange != null">
+        cl_act_change,
+      </if>
+      <if test="clDoDesign != null">
+        cl_do_design,
+      </if>
+      <if test="clDoChange != null">
+        cl_do_change,
+      </if>
+      <if test="clUpDesign != null">
+        cl_up_design,
+      </if>
+      <if test="clUpChange != null">
+        cl_up_change,
+      </if>
+      <if test="clDownDesign != null">
+        cl_down_design,
+      </if>
+      <if test="clDownChange != null">
+        cl_down_change,
+      </if>
+      <if test="clInfo != null">
+        cl_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clId != null">
+        #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="clCode != null">
+        #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="clType != null">
+        #{clType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="clName != null">
+        #{clName,jdbcType=VARCHAR},
+      </if>
+      <if test="clUnit != null">
+        #{clUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="clBudget != null">
+        #{clBudget,jdbcType=DOUBLE},
+      </if>
+      <if test="clDwgDesign != null">
+        #{clDwgDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clDwgChange != null">
+        #{clDwgChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clChkDesign != null">
+        #{clChkDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clChkChange != null">
+        #{clChkChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clActDesign != null">
+        #{clActDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clActChange != null">
+        #{clActChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clDoDesign != null">
+        #{clDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clDoChange != null">
+        #{clDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clUpDesign != null">
+        #{clUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clUpChange != null">
+        #{clUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clDownDesign != null">
+        #{clDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clDownChange != null">
+        #{clDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clInfo != null">
+        #{clInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.CostLayerExample" resultType="java.lang.Long">
+    select count(*) from tb_costlayer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_costlayer
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_costlayer
+    <set>
+      <if test="record.clId != null">
+        cl_id = #{record.clId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clCode != null">
+        cl_code = #{record.clCode,jdbcType=CHAR},
+      </if>
+      <if test="record.clType != null">
+        cl_type = #{record.clType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.clName != null">
+        cl_name = #{record.clName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clUnit != null">
+        cl_unit = #{record.clUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clBudget != null">
+        cl_budget = #{record.clBudget,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clDwgDesign != null">
+        cl_dwg_design = #{record.clDwgDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clDwgChange != null">
+        cl_dwg_change = #{record.clDwgChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clChkDesign != null">
+        cl_chk_design = #{record.clChkDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clChkChange != null">
+        cl_chk_change = #{record.clChkChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clActDesign != null">
+        cl_act_design = #{record.clActDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clActChange != null">
+        cl_act_change = #{record.clActChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clDoDesign != null">
+        cl_do_design = #{record.clDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clDoChange != null">
+        cl_do_change = #{record.clDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clUpDesign != null">
+        cl_up_design = #{record.clUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clUpChange != null">
+        cl_up_change = #{record.clUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clDownDesign != null">
+        cl_down_design = #{record.clDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clDownChange != null">
+        cl_down_change = #{record.clDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clInfo != null">
+        cl_info = #{record.clInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_costlayer
+    set cl_id = #{record.clId,jdbcType=INTEGER},
+      cl_code = #{record.clCode,jdbcType=CHAR},
+      cl_type = #{record.clType,jdbcType=LONGVARCHAR},
+      cl_name = #{record.clName,jdbcType=VARCHAR},
+      cl_unit = #{record.clUnit,jdbcType=VARCHAR},
+      cl_budget = #{record.clBudget,jdbcType=DOUBLE},
+      cl_dwg_design = #{record.clDwgDesign,jdbcType=DOUBLE},
+      cl_dwg_change = #{record.clDwgChange,jdbcType=DOUBLE},
+      cl_chk_design = #{record.clChkDesign,jdbcType=DOUBLE},
+      cl_chk_change = #{record.clChkChange,jdbcType=DOUBLE},
+      cl_act_design = #{record.clActDesign,jdbcType=DOUBLE},
+      cl_act_change = #{record.clActChange,jdbcType=DOUBLE},
+      cl_do_design = #{record.clDoDesign,jdbcType=DOUBLE},
+      cl_do_change = #{record.clDoChange,jdbcType=DOUBLE},
+      cl_up_design = #{record.clUpDesign,jdbcType=DOUBLE},
+      cl_up_change = #{record.clUpChange,jdbcType=DOUBLE},
+      cl_down_design = #{record.clDownDesign,jdbcType=DOUBLE},
+      cl_down_change = #{record.clDownChange,jdbcType=DOUBLE},
+      cl_info = #{record.clInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.CostLayer">
+    update tb_costlayer
+    <set>
+      <if test="clCode != null">
+        cl_code = #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="clType != null">
+        cl_type = #{clType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="clName != null">
+        cl_name = #{clName,jdbcType=VARCHAR},
+      </if>
+      <if test="clUnit != null">
+        cl_unit = #{clUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="clBudget != null">
+        cl_budget = #{clBudget,jdbcType=DOUBLE},
+      </if>
+      <if test="clDwgDesign != null">
+        cl_dwg_design = #{clDwgDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clDwgChange != null">
+        cl_dwg_change = #{clDwgChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clChkDesign != null">
+        cl_chk_design = #{clChkDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clChkChange != null">
+        cl_chk_change = #{clChkChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clActDesign != null">
+        cl_act_design = #{clActDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clActChange != null">
+        cl_act_change = #{clActChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clDoDesign != null">
+        cl_do_design = #{clDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clDoChange != null">
+        cl_do_change = #{clDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clUpDesign != null">
+        cl_up_design = #{clUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clUpChange != null">
+        cl_up_change = #{clUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clDownDesign != null">
+        cl_down_design = #{clDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="clDownChange != null">
+        cl_down_change = #{clDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="clInfo != null">
+        cl_info = #{clInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cl_id = #{clId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.CostLayer">
+    update tb_costlayer
+    set cl_code = #{clCode,jdbcType=CHAR},
+      cl_type = #{clType,jdbcType=LONGVARCHAR},
+      cl_name = #{clName,jdbcType=VARCHAR},
+      cl_unit = #{clUnit,jdbcType=VARCHAR},
+      cl_budget = #{clBudget,jdbcType=DOUBLE},
+      cl_dwg_design = #{clDwgDesign,jdbcType=DOUBLE},
+      cl_dwg_change = #{clDwgChange,jdbcType=DOUBLE},
+      cl_chk_design = #{clChkDesign,jdbcType=DOUBLE},
+      cl_chk_change = #{clChkChange,jdbcType=DOUBLE},
+      cl_act_design = #{clActDesign,jdbcType=DOUBLE},
+      cl_act_change = #{clActChange,jdbcType=DOUBLE},
+      cl_do_design = #{clDoDesign,jdbcType=DOUBLE},
+      cl_do_change = #{clDoChange,jdbcType=DOUBLE},
+      cl_up_design = #{clUpDesign,jdbcType=DOUBLE},
+      cl_up_change = #{clUpChange,jdbcType=DOUBLE},
+      cl_down_design = #{clDownDesign,jdbcType=DOUBLE},
+      cl_down_change = #{clDownChange,jdbcType=DOUBLE},
+      cl_info = #{clInfo,jdbcType=VARCHAR}
+    where cl_id = #{clId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_costlayer
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_costlayer
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_costlayer
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_costlayer
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_costlayer
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_costlayer
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_costlayer
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_costlayer
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_costlayer
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_costlayer
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_costlayer
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

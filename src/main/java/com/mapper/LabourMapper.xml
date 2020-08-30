@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.LabourMapper">
+  <resultMap id="BaseResultMap" type="com.model.Labour">
+    <id column="lb_id" jdbcType="INTEGER" property="lbId" />
+    <result column="pi_id" jdbcType="INTEGER" property="piId" />
+    <result column="cl_id" jdbcType="INTEGER" property="clId" />
+    <result column="lb_code" jdbcType="CHAR" property="lbCode" />
+    <result column="pi_name" jdbcType="VARCHAR" property="piName" />
+    <result column="cl_code" jdbcType="CHAR" property="clCode" />
+    <result column="lb_date" jdbcType="TIMESTAMP" property="lbDate" />
+    <result column="lb_name" jdbcType="VARCHAR" property="lbName" />
+    <result column="lb_unit" jdbcType="VARCHAR" property="lbUnit" />
+    <result column="lb_do_design" jdbcType="DOUBLE" property="lbDoDesign" />
+    <result column="lb_do_change" jdbcType="DOUBLE" property="lbDoChange" />
+    <result column="lb_up_design" jdbcType="DOUBLE" property="lbUpDesign" />
+    <result column="lb_up_change" jdbcType="DOUBLE" property="lbUpChange" />
+    <result column="lb_down_design" jdbcType="DOUBLE" property="lbDownDesign" />
+    <result column="lb_down_change" jdbcType="DOUBLE" property="lbDownChange" />
+    <result column="lb_info" jdbcType="VARCHAR" property="lbInfo" />
+  </resultMap>
+  <resultMap id="BaseResultMapExtends" type="com.model.Labour" extends="BaseResultMap">
+    <association property="partItem" javaType="com.model.PartItem"
+                 select="com.mapper.PartItemMapper.selectByPrimaryKey" column="pi_id">
+    </association>
+    <association property="costLayer" javaType="com.model.CostLayer"
+                 select="com.mapper.CostLayerMapper.selectByPrimaryKey" column="cl_id">
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.lbId != null">
+        lb_id = #{record.lbId,jdbcType=INTEGER}
+      </if>
+      <if test="record.piId != null">
+        and pi_id = #{record.piId,jdbcType=INTEGER}
+      </if>
+      <if test="record.lbCode != null">
+        and lb_code = #{record.lbCode,jdbcType=CHAR}
+      </if>
+      <if test="record.piName != null">
+        and pi_name = #{record.piName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.clId != null">
+        and cl_id = #{record.clId,jdbcType=INTEGER}
+      </if>
+      <if test="record.clCode != null">
+        and cl_code = #{record.clCode,jdbcType=CHAR}
+      </if>
+      <if test="record.lbDate != null">
+        and lb_date = #{record.lbDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.lbName != null">
+        and lb_name = #{record.lbName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.lbUnit != null">
+        and lb_unit = #{record.lbUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.lbDoDesign != null">
+        and lb_do_design = #{record.lbDoDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.lbDoChange != null">
+        and lb_do_change = #{record.lbDoChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.lbUpDesign != null">
+        and lb_up_design = #{record.lbUpDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.lbUpChange != null">
+        and lb_up_change = #{record.lbUpChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.lbDownDesign != null">
+        and lb_down_design = #{record.lbDownDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.lbDownChange != null">
+        and lb_down_change = #{record.lbDownChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.lbInfo != null">
+        and lb_info = #{record.lbInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.lbId != null">
+        lb_id like concat('%', #{record.lbId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piId != null">
+        and pi_id like concat('%', #{record.piId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.lbCode != null">
+        and lb_code like concat('%', #{record.lbCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.piName != null">
+        and pi_name like concat('%', #{record.piName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.clId != null">
+        and cl_id like concat('%', #{record.clId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.clCode != null">
+        and cl_code like concat('%', #{record.clCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.lbDate != null">
+        and lb_date like concat('%', #{record.lbDate,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.lbName != null">
+        and lb_name like concat('%', #{record.lbName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.lbUnit != null">
+        and lb_unit like concat('%', #{record.lbUnit,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.lbDoDesign != null">
+        and lb_do_design like concat('%', #{record.lbDoDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.lbDoChange != null">
+        and lb_do_change like concat('%', #{record.lbDoChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.lbUpDesign != null">
+        and lb_up_design like concat('%', #{record.lbUpDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.lbUpChange != null">
+        and lb_up_change like concat('%', #{record.lbUpChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.lbDownDesign != null">
+        and lb_down_design like concat('%', #{record.lbDownDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.lbDownChange != null">
+        and lb_down_change like concat('%', #{record.lbDownChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.lbInfo != null">
+        and lb_info like concat('%', #{record.lbInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by lb_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by lb_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    lb_id, pi_id, cl_id, lb_code, pi_name, cl_code, lb_date, lb_name, lb_unit, lb_do_design, 
+    lb_do_change, lb_up_design, lb_up_change, lb_down_design, lb_down_change, lb_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          lb_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.LabourExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_labour
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapExtends">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_labour
+    where lb_id = #{lbId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labour
+    where lb_id = (select min(lb_id) from tb_labour)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labour
+    where lb_id = (select max(lb_id) from tb_labour)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_labour
+    where lb_id = #{lbId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.LabourExample">
+    delete from tb_labour
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="lb_id" keyProperty="lbId" parameterType="com.model.Labour" useGeneratedKeys="true">
+    insert into tb_labour (lb_id, pi_id, cl_id, lb_code,
+      pi_name, cl_code, lb_date, 
+      lb_name, lb_unit, lb_do_design, 
+      lb_do_change, lb_up_design, lb_up_change, 
+      lb_down_design, lb_down_change, lb_info
+      )
+    values (#{lbId,jdbcType=INTEGER}, #{piId,jdbcType=INTEGER}, #{clId,jdbcType=INTEGER}, #{lbCode,jdbcType=CHAR},
+      #{piName,jdbcType=VARCHAR}, #{clCode,jdbcType=CHAR}, #{lbDate,jdbcType=TIMESTAMP}, 
+      #{lbName,jdbcType=VARCHAR}, #{lbUnit,jdbcType=VARCHAR}, #{lbDoDesign,jdbcType=DOUBLE}, 
+      #{lbDoChange,jdbcType=DOUBLE}, #{lbUpDesign,jdbcType=DOUBLE}, #{lbUpChange,jdbcType=DOUBLE}, 
+      #{lbDownDesign,jdbcType=DOUBLE}, #{lbDownChange,jdbcType=DOUBLE}, #{lbInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="lb_id" keyProperty="lbId" parameterType="com.model.Labour" useGeneratedKeys="true">
+    insert into tb_labour
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lbId != null">
+        lb_id,
+      </if>
+      <if test="piId != null">
+        pi_id,
+      </if>
+      <if test="clId != null">
+        cl_id,
+      </if>
+      <if test="lbCode != null">
+        lb_code,
+      </if>
+      <if test="piName != null">
+        pi_name,
+      </if>
+      <if test="clCode != null">
+        cl_code,
+      </if>
+      <if test="lbDate != null">
+        lb_date,
+      </if>
+      <if test="lbName != null">
+        lb_name,
+      </if>
+      <if test="lbUnit != null">
+        lb_unit,
+      </if>
+      <if test="lbDoDesign != null">
+        lb_do_design,
+      </if>
+      <if test="lbDoChange != null">
+        lb_do_change,
+      </if>
+      <if test="lbUpDesign != null">
+        lb_up_design,
+      </if>
+      <if test="lbUpChange != null">
+        lb_up_change,
+      </if>
+      <if test="lbDownDesign != null">
+        lb_down_design,
+      </if>
+      <if test="lbDownChange != null">
+        lb_down_change,
+      </if>
+      <if test="lbInfo != null">
+        lb_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lbId != null">
+        #{lbId,jdbcType=INTEGER},
+      </if>
+      <if test="piId != null">
+        #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="lbCode != null">
+        #{lbCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="lbDate != null">
+        #{lbDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lbName != null">
+        #{lbName,jdbcType=VARCHAR},
+      </if>
+      <if test="lbUnit != null">
+        #{lbUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="lbDoDesign != null">
+        #{lbDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="lbDoChange != null">
+        #{lbDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="lbUpDesign != null">
+        #{lbUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="lbUpChange != null">
+        #{lbUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="lbDownDesign != null">
+        #{lbDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="lbDownChange != null">
+        #{lbDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="lbInfo != null">
+        #{lbInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.LabourExample" resultType="java.lang.Long">
+    select count(*) from tb_labour
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_labour
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_labour
+    <set>
+      <if test="record.lbId != null">
+        lb_id = #{record.lbId,jdbcType=INTEGER},
+      </if>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clId != null">
+        cl_id = #{record.clId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lbCode != null">
+        lb_code = #{record.lbCode,jdbcType=CHAR},
+      </if>
+      <if test="record.piName != null">
+        pi_name = #{record.piName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clCode != null">
+        cl_code = #{record.clCode,jdbcType=CHAR},
+      </if>
+      <if test="record.lbDate != null">
+        lb_date = #{record.lbDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lbName != null">
+        lb_name = #{record.lbName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lbUnit != null">
+        lb_unit = #{record.lbUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lbDoDesign != null">
+        lb_do_design = #{record.lbDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lbDoChange != null">
+        lb_do_change = #{record.lbDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lbUpDesign != null">
+        lb_up_design = #{record.lbUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lbUpChange != null">
+        lb_up_change = #{record.lbUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lbDownDesign != null">
+        lb_down_design = #{record.lbDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lbDownChange != null">
+        lb_down_change = #{record.lbDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lbInfo != null">
+        lb_info = #{record.lbInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_labour
+    set lb_id = #{record.lbId,jdbcType=INTEGER},
+      pi_id = #{record.piId,jdbcType=INTEGER},
+      cl_id = #{record.clId,jdbcType=INTEGER},
+      lb_code = #{record.lbCode,jdbcType=CHAR},
+      pi_name = #{record.piName,jdbcType=VARCHAR},
+      cl_code = #{record.clCode,jdbcType=CHAR},
+      lb_date = #{record.lbDate,jdbcType=TIMESTAMP},
+      lb_name = #{record.lbName,jdbcType=VARCHAR},
+      lb_unit = #{record.lbUnit,jdbcType=VARCHAR},
+      lb_do_design = #{record.lbDoDesign,jdbcType=DOUBLE},
+      lb_do_change = #{record.lbDoChange,jdbcType=DOUBLE},
+      lb_up_design = #{record.lbUpDesign,jdbcType=DOUBLE},
+      lb_up_change = #{record.lbUpChange,jdbcType=DOUBLE},
+      lb_down_design = #{record.lbDownDesign,jdbcType=DOUBLE},
+      lb_down_change = #{record.lbDownChange,jdbcType=DOUBLE},
+      lb_info = #{record.lbInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Labour">
+    update tb_labour
+    <set>
+      <if test="piId != null">
+        pi_id = #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        cl_id = #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="lbCode != null">
+        lb_code = #{lbCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        pi_name = #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        cl_code = #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="lbDate != null">
+        lb_date = #{lbDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lbName != null">
+        lb_name = #{lbName,jdbcType=VARCHAR},
+      </if>
+      <if test="lbUnit != null">
+        lb_unit = #{lbUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="lbDoDesign != null">
+        lb_do_design = #{lbDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="lbDoChange != null">
+        lb_do_change = #{lbDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="lbUpDesign != null">
+        lb_up_design = #{lbUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="lbUpChange != null">
+        lb_up_change = #{lbUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="lbDownDesign != null">
+        lb_down_design = #{lbDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="lbDownChange != null">
+        lb_down_change = #{lbDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="lbInfo != null">
+        lb_info = #{lbInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lb_id = #{lbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Labour">
+    update tb_labour
+    set pi_id = #{piId,jdbcType=INTEGER},
+      cl_id = #{clId,jdbcType=INTEGER},
+      lb_code = #{lbCode,jdbcType=CHAR},
+      pi_name = #{piName,jdbcType=VARCHAR},
+      cl_code = #{clCode,jdbcType=CHAR},
+      lb_date = #{lbDate,jdbcType=TIMESTAMP},
+      lb_name = #{lbName,jdbcType=VARCHAR},
+      lb_unit = #{lbUnit,jdbcType=VARCHAR},
+      lb_do_design = #{lbDoDesign,jdbcType=DOUBLE},
+      lb_do_change = #{lbDoChange,jdbcType=DOUBLE},
+      lb_up_design = #{lbUpDesign,jdbcType=DOUBLE},
+      lb_up_change = #{lbUpChange,jdbcType=DOUBLE},
+      lb_down_design = #{lbDownDesign,jdbcType=DOUBLE},
+      lb_down_change = #{lbDownChange,jdbcType=DOUBLE},
+      lb_info = #{lbInfo,jdbcType=VARCHAR}
+    where lb_id = #{lbId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labour
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_labour
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labour
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_labour
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labour
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_labour
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labour
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_labour
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labour
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_labour
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_labour
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_labour
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_labour
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_labour
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labour
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_labour
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

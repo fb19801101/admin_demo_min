@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<properties resource="db.properties"/>
+
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+		<setting name="cacheEnabled" value="true"/>
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="multipleResultSetsEnabled" value="true"/>
+		<setting name="useColumnLabel" value="true"/>
+		<setting name="useGeneratedKeys" value="false"/>
+		<setting name="autoMappingBehavior" value="PARTIAL"/>
+		<setting name="safeRowBoundsEnabled" value="false"/>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="localCacheScope" value="SESSION"/>
+		<setting name="jdbcTypeForNull" value="OTHER"/>
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="com.model.Budget" alias="Budget"/>
+		<typeAlias type="com.model.Company" alias="Company"/>
+		<typeAlias type="com.model.Contract" alias="Contract"/>
+		<typeAlias type="com.model.CostLayer" alias="CostLayer"/>
+		<typeAlias type="com.model.Demolition" alias="Demolition"/>
+		<typeAlias type="com.model.Equipment" alias="Equipment"/>
+		<typeAlias type="com.model.Estimation" alias="Estimation"/>
+		<typeAlias type="com.model.Guidance" alias="Guidance"/>
+		<typeAlias type="com.model.Indirect" alias="Indirect"/>
+		<typeAlias type="com.model.Labour" alias="Labour"/>
+		<typeAlias type="com.model.NetPlan" alias="NetPlan"/>
+		<typeAlias type="com.model.Material" alias="Material"/>
+		<typeAlias type="com.model.PartItem" alias="PartItem"/>
+		<typeAlias type="com.model.Quantity" alias="Quantity"/>
+		<typeAlias type="com.model.Temporary" alias="Temporary"/>
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}"/>
+				<property name="url" value="${jdbc.url_first}"/>
+				<property name="username" value="${jdbc.username}"/>
+				<property name="password" value="${jdbc.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+</configuration>

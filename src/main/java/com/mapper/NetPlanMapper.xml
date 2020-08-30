@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.NetPlanMapper">
+  <resultMap id="BaseResultMap" type="com.model.NetPlan">
+    <id column="np_id" jdbcType="INTEGER" property="npId" />
+    <result column="pi_id" jdbcType="INTEGER" property="piId" />
+    <result column="cy_id" jdbcType="INTEGER" property="cyId" />
+    <result column="pi_Name" jdbcType="VARCHAR" property="piName" />
+    <result column="cy_name" jdbcType="VARCHAR" property="cyName" />
+    <result column="np_work" jdbcType="VARCHAR" property="npWork" />
+    <result column="np_es" jdbcType="TIMESTAMP" property="npEs" />
+    <result column="np_ef" jdbcType="TIMESTAMP" property="npEf" />
+    <result column="np_ls" jdbcType="TIMESTAMP" property="npLs" />
+    <result column="np_lf" jdbcType="TIMESTAMP" property="npLf" />
+    <result column="np_rs" jdbcType="TIMESTAMP" property="npRs" />
+    <result column="np_rf" jdbcType="TIMESTAMP" property="npRf" />
+    <result column="np_tf" jdbcType="LONGVARCHAR" property="npTf" />
+    <result column="np_tb" jdbcType="LONGVARCHAR" property="npTb" />
+    <result column="np_info" jdbcType="VARCHAR" property="npInfo" />
+  </resultMap>
+  <resultMap id="BaseResultMapExtends" type="com.model.NetPlan" extends="BaseResultMap">
+    <association property="partItem" javaType="com.model.PartItem"
+                 select="com.mapper.PartItemMapper.selectByPrimaryKey" column="pi_id">
+    </association>
+    <association property="company" javaType="com.model.Company"
+                 select="com.mapper.CompanyMapper.selectByPrimaryKey" column="cy_id">
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.npId != null">
+        np_id = #{record.npId,jdbcType=INTEGER}
+      </if>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER}
+      </if>
+      <if test="record.piName != null">
+        and pi_name = #{record.piName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.lbId != null">
+        lb_id = #{record.lbId,jdbcType=INTEGER}
+      </if>
+      <if test="record.lbName != null">
+        and lb_name = #{record.lbName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.npWork != null">
+        and np_work = #{record.npWork,jdbcType=VARCHAR}
+      </if>
+      <if test="record.npEs != null">
+        and np_es = #{record.npEs,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.npEf != null">
+        and np_ef = #{record.npEf,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.npLs != null">
+        and np_ls = #{record.npLs,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.npLf != null">
+        and np_lf = #{record.npLf,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.npRs != null">
+        and np_rs = #{record.npRs,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.npRf != null">
+        and np_rf = #{record.npRf,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.npTf != null">
+        and np_tf = #{record.npTf,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="record.npTb != null">
+        and np_tb = #{record.npTb,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="record.npInfo != null">
+        and np_info = #{record.npInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.npId != null">
+        np_id like concat('%', #{record.npId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piId != null">
+        pi_id like concat('%', #{record.piId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piName != null">
+        and pi_name like concat('%', #{record.piName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.lbId != null">
+        lb_id like concat('%', #{record.lbId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.lbName != null">
+        and lb_name like concat('%', #{record.lbName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.npWork != null">
+        and np_work like concat('%', #{record.npWork,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.npEs != null">
+        and np_es like concat('%', #{record.npEs,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.npEf != null">
+        and np_ef like concat('%', #{record.npEf,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.npLs != null">
+        and np_ls like concat('%', #{record.npLs,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.npLf != null">
+        and np_lf like concat('%', #{record.npLf,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.npRs != null">
+        and np_rs like concat('%', #{record.npRs,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.npRf != null">
+        and np_rf like concat('%', #{record.npRf,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.npTf != null">
+        and np_tf like concat('%', #{record.npTf,jdbcType=LONGVARCHAR}, '%')
+      </if>
+      <if test="record.npTb != null">
+        and np_tb like concat('%', #{record.npTb,jdbcType=LONGVARCHAR}, '%')
+      </if>
+      <if test="record.npInfo != null">
+        and np_info like concat('%', #{record.npInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by np_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by np_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    np_id, pi_id, cy_id, pi_Name, cy_name, np_work, np_es, np_ef, np_ls, np_lf, np_rs, 
+    np_rf, np_tf, np_tb, np_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          np_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.NetPlanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapExtends">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    where np_id = #{npId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    where np_id = (select min(np_id) from tb_netplan)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    where np_id = (select max(np_id) from tb_netplan)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_netplan
+    where np_id = #{npId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.NetPlanExample">
+    delete from tb_netplan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="np_id" keyProperty="npId" parameterType="com.model.NetPlan" useGeneratedKeys="true">
+    insert into tb_netplan (np_id, pi_id, cy_id, pi_Name,
+      cy_name, np_work, np_es, np_ef, np_ls, np_lf, np_rs, np_rf, np_tf, np_tb, np_info
+      )
+    values (#{npId,jdbcType=INTEGER}, #{piId,jdbcType=INTEGER}, #{cyId,jdbcType=INTEGER}, #{piName,jdbcType=VARCHAR},
+      #{cyName,jdbcType=VARCHAR}, #{npWork,jdbcType=VARCHAR}, #{npEs,jdbcType=TIMESTAMP}, 
+      #{npEf,jdbcType=TIMESTAMP}, #{npLs,jdbcType=TIMESTAMP}, #{npLf,jdbcType=TIMESTAMP}, 
+      #{npRs,jdbcType=TIMESTAMP}, #{npRf,jdbcType=TIMESTAMP}, #{npTf,jdbcType=LONGVARCHAR},
+      #{npTb,jdbcType=LONGVARCHAR},#{npInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="np_id" keyProperty="npId" parameterType="com.model.NetPlan" useGeneratedKeys="true">
+    insert into tb_netplan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="npId != null">
+        np_id,
+      </if>
+      <if test="piId != null">
+        pi_id,
+      </if>
+      <if test="cyId != null">
+        cy_id,
+      </if>
+      <if test="piName != null">
+        pi_Name,
+      </if>
+      <if test="cyName != null">
+        cy_name,
+      </if>
+      <if test="npWork != null">
+        np_work,
+      </if>
+      <if test="npEs != null">
+        np_es,
+      </if>
+      <if test="npEf != null">
+        np_ef,
+      </if>
+      <if test="npLs != null">
+        np_ls,
+      </if>
+      <if test="npLf != null">
+        np_lf,
+      </if>
+      <if test="npRs != null">
+        np_rs,
+      </if>
+      <if test="npRf != null">
+        np_rf,
+      </if>
+      <if test="npTf != null">
+        np_tf,
+      </if>
+      <if test="npTb != null">
+        np_tb,
+      </if>
+      <if test="npInfo != null">
+        np_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="npId != null">
+        #{npId,jdbcType=INTEGER},
+      </if>
+      <if test="piId != null">
+        #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="cyId != null">
+        #{cyId,jdbcType=INTEGER},
+      </if>
+      <if test="piName != null">
+        #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="cyName != null">
+        #{cyName,jdbcType=VARCHAR},
+      </if>
+      <if test="npWork != null">
+        #{npWork,jdbcType=VARCHAR},
+      </if>
+      <if test="npEs != null">
+        #{npEs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npEf != null">
+        #{npEf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npLs != null">
+        #{npLs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npLf != null">
+        #{npLf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npRs != null">
+        #{npRs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npRf != null">
+        #{npRf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npTf != null">
+        #{npTf,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="npTb != null">
+        #{npTb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="npInfo != null">
+        #{npInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.NetPlanExample" resultType="java.lang.Long">
+    select count(*) from tb_netplan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_netplan
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_netplan
+    <set>
+      <if test="record.npId != null">
+        np_id = #{record.npId,jdbcType=INTEGER},
+      </if>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cyId != null">
+        cy_id = #{record.cyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.piName != null">
+        pi_Name = #{record.piName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cyName != null">
+        cy_name = #{record.cyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.npWork != null">
+        np_work = #{record.npWork,jdbcType=VARCHAR},
+      </if>
+      <if test="record.npEs != null">
+        np_es = #{record.npEs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.npEf != null">
+        np_ef = #{record.npEf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.npLs != null">
+        np_ls = #{record.npLs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.npLf != null">
+        np_lf = #{record.npLf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.npRs != null">
+        np_rs = #{record.npRs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.npRf != null">
+        np_rf = #{record.npRf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.npTf != null">
+        np_tf = #{record.npTf,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.npTb != null">
+        np_tb = #{record.npTb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.npInfo != null">
+        np_info = #{record.npInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_netplan
+    set np_id = #{record.npId,jdbcType=INTEGER},
+      pi_id = #{record.piId,jdbcType=INTEGER},
+      cy_id = #{record.cyId,jdbcType=INTEGER},
+      pi_Name = #{record.piName,jdbcType=VARCHAR},
+      cy_name = #{record.cyName,jdbcType=VARCHAR},
+      np_work = #{record.npWork,jdbcType=VARCHAR},
+      np_es = #{record.npEs,jdbcType=TIMESTAMP},
+      np_ef = #{record.npEf,jdbcType=TIMESTAMP},
+      np_ls = #{record.npLs,jdbcType=TIMESTAMP},
+      np_lf = #{record.npLf,jdbcType=TIMESTAMP},
+      np_rs = #{record.npRs,jdbcType=TIMESTAMP},
+      np_rf = #{record.npRf,jdbcType=TIMESTAMP},
+      np_tf = #{record.npTf,jdbcType=LONGVARCHAR},
+      np_tb = #{record.npTb,jdbcType=LONGVARCHAR},
+      np_info = #{record.npInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.NetPlan">
+    update tb_netplan
+    <set>
+      <if test="piId != null">
+        pi_id = #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="cyId != null">
+        cy_id = #{cyId,jdbcType=INTEGER},
+      </if>
+      <if test="piName != null">
+        pi_Name = #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="cyName != null">
+        cy_name = #{cyName,jdbcType=VARCHAR},
+      </if>
+      <if test="npWork != null">
+        np_work = #{npWork,jdbcType=VARCHAR},
+      </if>
+      <if test="npEs != null">
+        np_es = #{npEs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npEf != null">
+        np_ef = #{npEf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npLs != null">
+        np_ls = #{npLs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npLf != null">
+        np_lf = #{npLf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npRs != null">
+        np_rs = #{npRs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npRf != null">
+        np_rf = #{npRf,jdbcType=TIMESTAMP},
+      </if>
+      <if test="npTf != null">
+        np_tf = #{npTf,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="npTb != null">
+        np_tb = #{npTb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="npInfo != null">
+        np_info = #{npInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where np_id = #{npId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.NetPlan">
+    update tb_netplan
+    set pi_id = #{piId,jdbcType=INTEGER},
+      cy_id = #{cyId,jdbcType=INTEGER},
+      pi_Name = #{piName,jdbcType=VARCHAR},
+      cy_name = #{cyName,jdbcType=VARCHAR},
+      np_work = #{npWork,jdbcType=VARCHAR},
+      np_es = #{npEs,jdbcType=TIMESTAMP},
+      np_ef = #{npEf,jdbcType=TIMESTAMP},
+      np_ls = #{npLs,jdbcType=TIMESTAMP},
+      np_lf = #{npLf,jdbcType=TIMESTAMP},
+      np_rs = #{npRs,jdbcType=TIMESTAMP},
+      np_rf = #{npRf,jdbcType=TIMESTAMP},
+      np_tf = #{npTf,jdbcType=LONGVARCHAR},
+      np_tb = #{npTb,jdbcType=LONGVARCHAR},
+      np_info = #{npInfo,jdbcType=VARCHAR}
+    where np_id = #{npId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_netplan
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_netplan
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_netplan
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_netplan
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_netplan
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_netplan
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_netplan
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_netplan
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_netplan
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_netplan
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_netplan
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>
