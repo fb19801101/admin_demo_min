@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.BudgetMapper">
+  <resultMap id="BaseResultMap" type="com.model.Budget">
+    <id column="bg_id" jdbcType="INTEGER" property="bgId" />
+    <result column="ct_id" jdbcType="INTEGER" property="ctId" />
+    <result column="ct_code" jdbcType="CHAR" property="ctCode" />
+    <result column="bg_code" jdbcType="CHAR" property="bgCode" />
+    <result column="bg_name" jdbcType="VARCHAR" property="bgName" />
+    <result column="bg_unit" jdbcType="VARCHAR" property="bgUnit" />
+    <result column="bg_rate" jdbcType="DOUBLE" property="bgRate" />
+    <result column="bg_qty" jdbcType="DOUBLE" property="bgQty" />
+    <result column="bg_price" jdbcType="DOUBLE" property="bgPrice" />
+    <result column="bg_money" jdbcType="DOUBLE" property="bgMoney" />
+    <result column="bg_info" jdbcType="VARCHAR" property="bgInfo" />
+  </resultMap>
+  <resultMap id="BaseResultMapExtends" type="com.model.Budget" extends="BaseResultMap">
+  <association property="contract" javaType="com.model.Contract"
+               select="com.mapper.ContractMapper.selectByPrimaryKey" column="ct_id">
+  </association>
+</resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.bgId != null">
+        bg_id = #{record.bgId,jdbcType=INTEGER}
+      </if>
+      <if test="record.bgCode != null">
+        and bg_code = #{record.bgCode,jdbcType=CHAR}
+      </if>
+      <if test="record.ctId != null">
+        and ct_id = #{record.ctId,jdbcType=INTEGER}
+      </if>
+      <if test="record.ctCode != null">
+        and ct_code = #{record.ctCode,jdbcType=CHAR}
+      </if>
+      <if test="record.bgName != null">
+        and bg_name = #{record.bgName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.bgUnit != null">
+        and bg_unit = #{record.bgUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.bgRate != null">
+        and bg_rate = #{record.bgRate,jdbcType=DOUBLE}
+      </if>
+      <if test="record.bgQty != null">
+        and bg_qty = #{record.bgQty,jdbcType=DOUBLE}
+      </if>
+      <if test="record.bgPrice != null">
+        and bg_price = #{record.bgPrice,jdbcType=DOUBLE}
+      </if>
+      <if test="record.bgMoney != null">
+        and bg_money = #{record.bgMoney,jdbcType=DOUBLE}
+      </if>
+      <if test="record.bgInfo != null">
+        and bg_info = #{record.bgInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.bgId != null">
+        bg_id like concat('%', #{record.bgId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.bgCode != null">
+        and bg_code like concat('%', #{record.bgCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.ctId != null">
+        ct_id like concat('%', #{record.ctId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.ctCode != null">
+        and ct_code like concat('%', #{record.ctCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.bgName != null">
+        and bg_name like concat('%', #{record.bgName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.bgUnit != null">
+        and bg_unit like concat('%', #{record.bgUnit,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.bgRate != null">
+        and bg_rate like concat('%', #{record.bgRate,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.bgQty != null">
+        and bg_qty like concat('%', #{record.bgQty,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.bgPrice != null">
+        and bg_price like concat('%', #{record.bgPrice,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.bgMoney != null">
+        and bg_money like concat('%', #{record.bgMoney,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.bgInfo != null">
+        and bg_info like concat('%', #{record.bgInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by bg_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by bg_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    bg_id, ct_id, ct_code, bg_code, bg_name, bg_unit, bg_rate, bg_qty, bg_price, bg_money, 
+    bg_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          bg_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.BudgetExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_budget
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapExtends">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_budget
+    where bg_id = #{bgId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_budget
+    where bg_id = (select min(bg_id) from tb_budget)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_budget
+    where bg_id = (select max(bg_id) from tb_budget)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_budget
+    where bg_id = #{bgId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.BudgetExample">
+    delete from tb_budget
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="bg_id" keyProperty="bgId" parameterType="com.model.Budget" useGeneratedKeys="true">
+    insert into tb_budget (bg_id, ct_id, ct_code, bg_code,
+      bg_name, bg_unit, bg_rate, 
+      bg_qty, bg_price, bg_money, 
+      bg_info)
+    values (#{bgId,jdbcType=INTEGER}, #{ctId,jdbcType=INTEGER}, #{ctCode,jdbcType=CHAR}, #{bgCode,jdbcType=CHAR},
+      #{bgName,jdbcType=VARCHAR}, #{bgUnit,jdbcType=VARCHAR}, #{bgRate,jdbcType=DOUBLE}, 
+      #{bgQty,jdbcType=DOUBLE}, #{bgPrice,jdbcType=DOUBLE}, #{bgMoney,jdbcType=DOUBLE}, 
+      #{bgInfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="bg_id" keyProperty="bgId" parameterType="com.model.Budget" useGeneratedKeys="true">
+    insert into tb_budget
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bgId != null">
+        bg_id,
+      </if>
+      <if test="ctId != null">
+        ct_id,
+      </if>
+      <if test="ctCode != null">
+        ct_code,
+      </if>
+      <if test="bgCode != null">
+        bg_code,
+      </if>
+      <if test="bgName != null">
+        bg_name,
+      </if>
+      <if test="bgUnit != null">
+        bg_unit,
+      </if>
+      <if test="bgRate != null">
+        bg_rate,
+      </if>
+      <if test="bgQty != null">
+        bg_qty,
+      </if>
+      <if test="bgPrice != null">
+        bg_price,
+      </if>
+      <if test="bgMoney != null">
+        bg_money,
+      </if>
+      <if test="bgInfo != null">
+        bg_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bgId != null">
+        #{bgId,jdbcType=INTEGER},
+      </if>
+      <if test="ctId != null">
+        #{ctId,jdbcType=INTEGER},
+      </if>
+      <if test="ctCode != null">
+        #{ctCode,jdbcType=CHAR},
+      </if>
+      <if test="bgCode != null">
+        #{bgCode,jdbcType=CHAR},
+      </if>
+      <if test="bgName != null">
+        #{bgName,jdbcType=VARCHAR},
+      </if>
+      <if test="bgUnit != null">
+        #{bgUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="bgRate != null">
+        #{bgRate,jdbcType=DOUBLE},
+      </if>
+      <if test="bgQty != null">
+        #{bgQty,jdbcType=DOUBLE},
+      </if>
+      <if test="bgPrice != null">
+        #{bgPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="bgMoney != null">
+        #{bgMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bgInfo != null">
+        #{bgInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.BudgetExample" resultType="java.lang.Long">
+    select count(*) from tb_budget
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_budget
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_budget
+    <set>
+      <if test="record.bgId != null">
+        bg_id = #{record.bgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ctId != null">
+        ct_id = #{record.ctId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ctCode != null">
+        ct_code = #{record.ctCode,jdbcType=CHAR},
+      </if>
+      <if test="record.bgCode != null">
+        bg_code = #{record.bgCode,jdbcType=CHAR},
+      </if>
+      <if test="record.bgName != null">
+        bg_name = #{record.bgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bgUnit != null">
+        bg_unit = #{record.bgUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bgRate != null">
+        bg_rate = #{record.bgRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bgQty != null">
+        bg_qty = #{record.bgQty,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bgPrice != null">
+        bg_price = #{record.bgPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bgMoney != null">
+        bg_money = #{record.bgMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bgInfo != null">
+        bg_info = #{record.bgInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_budget
+    set bg_id = #{record.bgId,jdbcType=INTEGER},
+      ct_id = #{record.ctId,jdbcType=INTEGER},
+      ct_code = #{record.ctCode,jdbcType=CHAR},
+      bg_code = #{record.bgCode,jdbcType=CHAR},
+      bg_name = #{record.bgName,jdbcType=VARCHAR},
+      bg_unit = #{record.bgUnit,jdbcType=VARCHAR},
+      bg_rate = #{record.bgRate,jdbcType=DOUBLE},
+      bg_qty = #{record.bgQty,jdbcType=DOUBLE},
+      bg_price = #{record.bgPrice,jdbcType=DOUBLE},
+      bg_money = #{record.bgMoney,jdbcType=DOUBLE},
+      bg_info = #{record.bgInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Budget">
+    update tb_budget
+    <set>
+      <if test="ctId != null">
+        ct_id = #{ctId,jdbcType=INTEGER},
+      </if>
+      <if test="ctCode != null">
+        ct_code = #{ctCode,jdbcType=CHAR},
+      </if>
+      <if test="bgCode != null">
+        bg_code = #{bgCode,jdbcType=CHAR},
+      </if>
+      <if test="bgName != null">
+        bg_name = #{bgName,jdbcType=VARCHAR},
+      </if>
+      <if test="bgUnit != null">
+        bg_unit = #{bgUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="bgRate != null">
+        bg_rate = #{bgRate,jdbcType=DOUBLE},
+      </if>
+      <if test="bgQty != null">
+        bg_qty = #{bgQty,jdbcType=DOUBLE},
+      </if>
+      <if test="bgPrice != null">
+        bg_price = #{bgPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="bgMoney != null">
+        bg_money = #{bgMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bgInfo != null">
+        bg_info = #{bgInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bg_id = #{bgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Budget">
+    update tb_budget
+    set ct_id = #{ctId,jdbcType=INTEGER},
+      ct_code = #{ctCode,jdbcType=CHAR},
+      bg_code = #{bgCode,jdbcType=CHAR},
+      bg_name = #{bgName,jdbcType=VARCHAR},
+      bg_unit = #{bgUnit,jdbcType=VARCHAR},
+      bg_rate = #{bgRate,jdbcType=DOUBLE},
+      bg_qty = #{bgQty,jdbcType=DOUBLE},
+      bg_price = #{bgPrice,jdbcType=DOUBLE},
+      bg_money = #{bgMoney,jdbcType=DOUBLE},
+      bg_info = #{bgInfo,jdbcType=VARCHAR}
+    where bg_id = #{bgId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_budget
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_budget
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_budget
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_budget
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_budget
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_budget
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_budget
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_budget
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_budget
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_budget
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_budget
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_budget
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_budget
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_budget
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_budget
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_budget
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.PartItemMapper">
+  <resultMap id="BaseResultMap" type="com.model.PartItem">
+    <id column="pi_id" jdbcType="INTEGER" property="piId" />
+    <result column="pi_pid" jdbcType="INTEGER" property="piPid" />
+    <result column="pi_level" jdbcType="TINYINT" property="piLevel" />
+    <result column="pi_name" jdbcType="VARCHAR" property="piName" />
+    <result column="pi_check" jdbcType="TINYINT" property="piCheck" />
+    <result column="pi_fold" jdbcType="BIT" property="piFold" />
+    <result column="pi_info" jdbcType="VARCHAR" property="piInfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER}
+      </if>
+      <if test="record.piPid != null">
+        and pi_pid = #{record.piPid,jdbcType=INTEGER}
+      </if>
+      <if test="record.piLevel != null">
+        and pi_level = #{record.piLevel,jdbcType=TINYINT}
+      </if>
+      <if test="record.piName != null">
+        and pi_name = #{record.piName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.piCheck != null">
+        and pi_check = #{record.piCheck,jdbcType=TINYINT}
+      </if>
+      <if test="record.piFold != null">
+        and pi_fold = #{record.piFold,jdbcType=BIT}
+      </if>
+      <if test="record.piInfo != null">
+        and pi_info = #{record.piInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.piId != null">
+        pi_id like concat('%', #{record.piId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piPid != null">
+        and pi_pid like concat('%', #{record.piPid,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piLevel != null">
+        and pi_level like concat('%', #{record.piLevel,jdbcType=TINYINT}, '%')
+      </if>
+      <if test="record.piName != null">
+        and pi_name like concat('%', #{record.piName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.piCheck != null">
+        and pi_check like concat('%', #{record.piCheck,jdbcType=TINYINT}, '%')
+      </if>
+      <if test="record.piFold != null">
+        and pi_fold like concat('%', #{record.piFold,jdbcType=BIT}, '%')
+      </if>
+      <if test="record.piInfo != null">
+        and pi_info like concat('%', #{record.piInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by pi_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by pi_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    pi_id, pi_pid, pi_level, pi_name, pi_check, pi_fold, pi_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          pi_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.PartItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    where pi_id = #{piId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    where pi_id = (select min(pi_id) from tb_partitem)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    where pi_id = (select max(pi_id) from tb_partitem)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_partitem
+    where pi_id = #{piId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.PartItemExample">
+    delete from tb_partitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="pi_id" keyProperty="piId" parameterType="com.model.PartItem" useGeneratedKeys="true">
+    insert into tb_partitem (pi_id, pi_pid, pi_level, pi_name,
+      pi_check, pi_fold, pi_info
+      )
+    values (#{piId,jdbcType=INTEGER}, #{piPid,jdbcType=INTEGER}, #{piLevel,jdbcType=TINYINT}, #{piName,jdbcType=VARCHAR},
+      #{piCheck,jdbcType=TINYINT}, #{piFold,jdbcType=BIT}, #{piInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="pi_id" keyProperty="piId" parameterType="com.model.PartItem" useGeneratedKeys="true">
+    insert into tb_partitem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="piId != null">
+        pi_id,
+      </if>
+      <if test="piPid != null">
+        pi_pid,
+      </if>
+      <if test="piLevel != null">
+        pi_level,
+      </if>
+      <if test="piName != null">
+        pi_name,
+      </if>
+      <if test="piCheck != null">
+        pi_check,
+      </if>
+      <if test="piFold != null">
+        pi_fold,
+      </if>
+      <if test="piInfo != null">
+        pi_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="piId != null">
+        #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="piPid != null">
+        #{piPid,jdbcType=INTEGER},
+      </if>
+      <if test="piLevel != null">
+        #{piLevel,jdbcType=TINYINT},
+      </if>
+      <if test="piName != null">
+        #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="piCheck != null">
+        #{piCheck,jdbcType=TINYINT},
+      </if>
+      <if test="piFold != null">
+        #{piFold,jdbcType=BIT},
+      </if>
+      <if test="piInfo != null">
+        #{piInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.PartItemExample" resultType="java.lang.Long">
+    select count(*) from tb_partitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_partitem
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_partitem
+    <set>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER},
+      </if>
+      <if test="record.piPid != null">
+        pi_pid = #{record.piPid,jdbcType=INTEGER},
+      </if>
+      <if test="record.piLevel != null">
+        pi_level = #{record.piLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.piName != null">
+        pi_name = #{record.piName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.piCheck != null">
+        pi_check = #{record.piCheck,jdbcType=TINYINT},
+      </if>
+      <if test="record.piFold != null">
+        pi_fold = #{record.piFold,jdbcType=BIT},
+      </if>
+      <if test="record.piInfo != null">
+        pi_info = #{record.piInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_partitem
+    set pi_id = #{record.piId,jdbcType=INTEGER},
+      pi_pid = #{record.piPid,jdbcType=INTEGER},
+      pi_level = #{record.piLevel,jdbcType=TINYINT},
+      pi_name = #{record.piName,jdbcType=VARCHAR},
+      pi_check = #{record.piCheck,jdbcType=TINYINT},
+      pi_fold = #{record.piFold,jdbcType=BIT},
+      pi_info = #{record.piInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.PartItem">
+    update tb_partitem
+    <set>
+      <if test="piPid != null">
+        pi_pid = #{piPid,jdbcType=INTEGER},
+      </if>
+      <if test="piLevel != null">
+        pi_level = #{piLevel,jdbcType=TINYINT},
+      </if>
+      <if test="piName != null">
+        pi_name = #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="piCheck != null">
+        pi_check = #{piCheck,jdbcType=TINYINT},
+      </if>
+      <if test="piFold != null">
+        pi_fold = #{piFold,jdbcType=BIT},
+      </if>
+      <if test="piInfo != null">
+        pi_info = #{piInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pi_id = #{piId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.PartItem">
+    update tb_partitem
+    set pi_pid = #{piPid,jdbcType=INTEGER},
+      pi_level = #{piLevel,jdbcType=TINYINT},
+      pi_name = #{piName,jdbcType=VARCHAR},
+      pi_check = #{piCheck,jdbcType=TINYINT},
+      pi_fold = #{piFold,jdbcType=BIT},
+      pi_info = #{piInfo,jdbcType=VARCHAR}
+    where pi_id = #{piId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_partitem
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_partitem
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_partitem
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_partitem
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_partitem
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_partitem
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_partitem
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_partitem
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_partitem
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_partitem
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_partitem
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

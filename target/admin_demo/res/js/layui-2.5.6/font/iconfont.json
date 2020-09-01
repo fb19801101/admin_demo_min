@@ -1,0 +1,840 @@
+[{
+"font_class": "layui-icon-heart-fill"
+,"name": "实心"
+,"unicode": "#xe68f"
+},
+{
+"font_class": "layui-icon-heart"
+,"name": "空心"
+,"unicode": "#xe68c"
+},
+{
+"font_class": "layui-icon-light"
+,"name": "亮度/晴"
+,"unicode": "#xe748"
+},
+{
+"font_class": "layui-icon-time"
+,"name": "时间/历史"
+,"unicode": "#xe68d"
+},
+{
+"font_class": "layui-icon-bluetooth"
+,"name": "蓝牙"
+,"unicode": "#xe689"
+},
+{
+"font_class": "layui-icon-at"
+,"name": "@艾特"
+,"unicode": "#xe687"
+},
+{
+"font_class": "layui-icon-mute"
+,"name": "静音"
+,"unicode": "#xe685"
+},
+{
+"font_class": "layui-icon-mike"
+,"name": "录音/麦克风"
+,"unicode": "#xe6dc"
+},
+{
+"font_class": "layui-icon-key"
+,"name": "密钥/钥匙"
+,"unicode": "#xe683"
+},
+{
+"font_class": "layui-icon-gift"
+,"name": "礼物/活动"
+,"unicode": "#xe627"
+},
+{
+"font_class": "layui-icon-email"
+,"name": "邮箱"
+,"unicode": "#xe618"
+},
+{
+"font_class": "layui-icon-rss"
+,"name": "RSS"
+,"unicode": "#xe808"
+},
+{
+"font_class": "layui-icon-wifi"
+,"name": "WiFi"
+,"unicode": "#xe7e0"
+},
+{
+"font_class": "layui-icon-logout"
+,"name": "退出/注销"
+,"unicode": "#xe682"
+},
+{
+"font_class": "layui-icon-android"
+,"name": "Android 安卓"
+,"unicode": "#xe684"
+},
+{
+"font_class": "layui-icon-ios"
+,"name": "Apple IOS 苹果"
+,"unicode": "#xe680"
+},
+{
+"font_class": "layui-icon-windows"
+,"name": "Windows"
+,"unicode": "#xe67f"
+},
+{
+"font_class": "layui-icon-transfer"
+,"name": "穿梭框"
+,"unicode": "#xe691"
+},
+{
+"font_class": "layui-icon-service"
+,"name": "客服"
+,"unicode": "#xe626"
+},
+{
+"font_class": "layui-icon-subtraction"
+,"name": "减"
+,"unicode": "#xe67e"
+},
+{
+"font_class": "layui-icon-addition"
+,"name": "加"
+,"unicode": "#xe624"
+},
+{
+"font_class": "layui-icon-slider"
+,"name": "滑块"
+,"unicode": "#xe714"
+},
+{
+"font_class": "layui-icon-print"
+,"name": "打印"
+,"unicode": "#xe66d"
+},
+{
+"font_class": "layui-icon-export"
+,"name": "导出"
+,"unicode": "#xe67d"
+},
+{
+"font_class": "layui-icon-cols"
+,"name": "列"
+,"unicode": "#xe610"
+},
+{
+"font_class": "layui-icon-screen-restore"
+,"name": "退出全屏"
+,"unicode": "#xe758"
+},
+{
+"font_class": "layui-icon-screen-full"
+,"name": "全屏"
+,"unicode": "#xe622"
+},
+{
+"font_class": "layui-icon-rate-half"
+,"name": "半星"
+,"unicode": "#xe6c9"
+},
+{
+"font_class": "layui-icon-rate"
+,"name": "星星-空心"
+,"unicode": "#xe67b"
+},
+{
+"font_class": "layui-icon-rate-solid"
+,"name": "星星-实心"
+,"unicode": "#xe67a"
+},
+{
+"font_class": "layui-icon-cellphone"
+,"name": "手机"
+,"unicode": "#xe678"
+},
+{
+"font_class": "layui-icon-vercode"
+,"name": "验证码"
+,"unicode": "#xe679"
+},
+{
+"font_class": "layui-icon-login-wechat"
+,"name": "微信"
+,"unicode": "#xe677"
+},
+{
+"font_class": "layui-icon-login-qq"
+,"name": "QQ"
+,"unicode": "#xe676"
+},
+{
+"font_class": "layui-icon-login-weibo"
+,"name": "微博"
+,"unicode": "#xe675"
+},
+{
+"font_class": "layui-icon-password"
+,"name": "密码"
+,"unicode": "#xe673"
+},
+{
+"font_class": "layui-icon-username"
+,"name": "用户名"
+,"unicode": "#xe66f"
+},
+{
+"font_class": "layui-icon-refresh-3"
+,"name": "刷新-粗"
+,"unicode": "#xe9aa"
+},
+{
+"font_class": "layui-icon-auz"
+,"name": "授权"
+,"unicode": "#xe672"
+},
+{
+"font_class": "layui-icon-spread-left"
+,"name": "左向右伸缩菜单"
+,"unicode": "#xe66b"
+},
+{
+"font_class": "layui-icon-shrink-right"
+,"name": "右向左伸缩菜单"
+,"unicode": "#xe668"
+},
+{
+"font_class": "layui-icon-snowflake"
+,"name": "雪花"
+,"unicode": "#xe6b1"
+},
+{
+"font_class": "layui-icon-tips"
+,"name": "提示说明"
+,"unicode": "#xe702"
+},
+{
+"font_class": "layui-icon-note"
+,"name": "便签"
+,"unicode": "#xe66e"
+},
+{
+"font_class": "layui-icon-home"
+,"name": "主页"
+,"unicode": "#xe68e"
+},
+{
+"font_class": "layui-icon-senior"
+,"name": "高级"
+,"unicode": "#xe674"
+},
+{
+"font_class": "layui-icon-refresh"
+,"name": "刷新"
+,"unicode": "#xe669"
+},
+{
+"font_class": "layui-icon-refresh-1"
+,"name": "刷新"
+,"unicode": "#xe666"
+},
+{
+"font_class": "layui-icon-flag"
+,"name": "旗帜"
+,"unicode": "#xe66c"
+},
+{
+"font_class": "layui-icon-theme"
+,"name": "主题"
+,"unicode": "#xe66a"
+},
+{
+"font_class": "layui-icon-notice"
+,"name": "消息-通知"
+,"unicode": "#xe667"
+},
+{
+"font_class": "layui-icon-website"
+,"name": "网站"
+,"unicode": "#xe7ae"
+},
+{
+"font_class": "layui-icon-console"
+,"name": "控制台"
+,"unicode": "#xe665"
+},
+{
+"font_class": "layui-icon-face-surprised"
+,"name": "表情-惊讶"
+,"unicode": "#xe664"
+},
+{
+"font_class": "layui-icon-set"
+,"name": "设置-空心"
+,"unicode": "#xe716"
+},
+{
+"font_class": "layui-icon-template-1"
+,"name": "模板"
+,"unicode": "#xe656"
+},
+{
+"font_class": "layui-icon-app"
+,"name": "应用"
+,"unicode": "#xe653"
+},
+{
+"font_class": "layui-icon-template"
+,"name": "模板"
+,"unicode": "#xe663"
+},
+{
+"font_class": "layui-icon-praise"
+,"name": "赞"
+,"unicode": "#xe6c6"
+},
+{
+"font_class": "layui-icon-tread"
+,"name": "踩"
+,"unicode": "#xe6c5"
+},
+{
+"font_class": "layui-icon-male"
+,"name": "男"
+,"unicode": "#xe662"
+},
+{
+"font_class": "layui-icon-female"
+,"name": "女"
+,"unicode": "#xe661"
+},
+{
+"font_class": "layui-icon-camera"
+,"name": "相机-空心"
+,"unicode": "#xe660"
+},
+{
+"font_class": "layui-icon-camera-fill"
+,"name": "相机-实心"
+,"unicode": "#xe65d"
+},
+{
+"font_class": "layui-icon-more"
+,"name": "菜单-水平"
+,"unicode": "#xe65f"
+},
+{
+"font_class": "layui-icon-more-vertical"
+,"name": "菜单-垂直"
+,"unicode": "#xe671"
+},
+{
+"font_class": "layui-icon-rmb"
+,"name": "金额-人民币"
+,"unicode": "#xe65e"
+},
+{
+"font_class": "layui-icon-dollar"
+,"name": "金额-美元"
+,"unicode": "#xe659"
+},
+{
+"font_class": "layui-icon-diamond"
+,"name": "钻石-等级"
+,"unicode": "#xe735"
+},
+{
+"font_class": "layui-icon-fire"
+,"name": "火"
+,"unicode": "#xe756"
+},
+{
+"font_class": "layui-icon-return"
+,"name": "返回"
+,"unicode": "#xe65c"
+},
+{
+"font_class": "layui-icon-location"
+,"name": "位置-地图"
+,"unicode": "#xe715"
+},
+{
+"font_class": "layui-icon-read"
+,"name": "办公-阅读"
+,"unicode": "#xe705"
+},
+{
+"font_class": "layui-icon-survey"
+,"name": "调查"
+,"unicode": "#xe6b2"
+},
+{
+"font_class": "layui-icon-face-smile"
+,"name": "表情-微笑"
+,"unicode": "#xe6af"
+},
+{
+"font_class": "layui-icon-face-cry"
+,"name": "表情-哭泣"
+,"unicode": "#xe69c"
+},
+{
+"font_class": "layui-icon-cart-simple"
+,"name": "购物车"
+,"unicode": "#xe698"
+},
+{
+"font_class": "layui-icon-cart"
+,"name": "购物车"
+,"unicode": "#xe657"
+},
+{
+"font_class": "layui-icon-next"
+,"name": "下一页"
+,"unicode": "#xe65b"
+},
+{
+"font_class": "layui-icon-prev"
+,"name": "上一页"
+,"unicode": "#xe65a"
+},
+{
+"font_class": "layui-icon-upload-drag"
+,"name": "上传-空心-拖拽"
+,"unicode": "#xe681"
+},
+{
+"font_class": "layui-icon-upload"
+,"name": "上传-实心"
+,"unicode": "#xe67c"
+},
+{
+"font_class": "layui-icon-download-circle"
+,"name": "下载-圆圈"
+,"unicode": "#xe601"
+},
+{
+"font_class": "layui-icon-component"
+,"name": "组件"
+,"unicode": "#xe857"
+},
+{
+"font_class": "layui-icon-file-b"
+,"name": "文件-粗"
+,"unicode": "#xe655"
+},
+{
+"font_class": "layui-icon-user"
+,"name": "用户"
+,"unicode": "#xe770"
+},
+{
+"font_class": "layui-icon-find-fill"
+,"name": "发现-实心"
+,"unicode": "#xe670"
+},
+{
+"font_class": "layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"
+,"name": "loading"
+,"unicode": "#xe63d"
+},
+{
+"font_class": "layui-icon-loading-1 layui-icon layui-anim layui-anim-rotate layui-anim-loop"
+,"name": "loading"
+,"unicode": "#xe63e"
+},
+{
+"font_class": "layui-icon-add-1"
+,"name": "添加"
+,"unicode": "#xe654"
+},
+{
+"font_class": "layui-icon-play"
+,"name": "播放"
+,"unicode": "#xe652"
+},
+{
+"font_class": "layui-icon-pause"
+,"name": "暂停"
+,"unicode": "#xe651"
+},
+{
+"font_class": "layui-icon-headset"
+,"name": "音频-耳机"
+,"unicode": "#xe6fc"
+},
+{
+"font_class": "layui-icon-video"
+,"name": "视频"
+,"unicode": "#xe6ed"
+},
+{
+"font_class": "layui-icon-voice"
+,"name": "语音-声音"
+,"unicode": "#xe688"
+},
+{
+"font_class": "layui-icon-speaker"
+,"name": "消息-通知-喇叭"
+,"unicode": "#xe645"
+},
+{
+"font_class": "layui-icon-fonts-del"
+,"name": "删除线"
+,"unicode": "#xe64f"
+},
+{
+"font_class": "layui-icon-fonts-code"
+,"name": "代码"
+,"unicode": "#xe64e"
+},
+{
+"font_class": "layui-icon-fonts-html"
+,"name": "HTML"
+,"unicode": "#xe64b"
+},
+{
+"font_class": "layui-icon-fonts-strong"
+,"name": "字体加粗"
+,"unicode": "#xe62b"
+},
+{
+"font_class": "layui-icon-unlink"
+,"name": "删除链接"
+,"unicode": "#xe64d"
+},
+{
+"font_class": "layui-icon-picture"
+,"name": "图片"
+,"unicode": "#xe64a"
+},
+{
+"font_class": "layui-icon-link"
+,"name": "链接"
+,"unicode": "#xe64c"
+},
+{
+"font_class": "layui-icon-face-smile-b"
+,"name": "表情-笑-粗"
+,"unicode": "#xe650"
+},
+{
+"font_class": "layui-icon-align-left"
+,"name": "左对齐"
+,"unicode": "#xe649"
+},
+{
+"font_class": "layui-icon-align-right"
+,"name": "右对齐"
+,"unicode": "#xe648"
+},
+{
+"font_class": "layui-icon-align-center"
+,"name": "居中对齐"
+,"unicode": "#xe647"
+},
+{
+"font_class": "layui-icon-fonts-u"
+,"name": "字体-下划线"
+,"unicode": "#xe646"
+},
+{
+"font_class": "layui-icon-fonts-i"
+,"name": "字体-斜体"
+,"unicode": "#xe644"
+},
+{
+"font_class": "layui-icon-tabs"
+,"name": "Tabs 选项卡"
+,"unicode": "#xe62a"
+},
+{
+"font_class": "layui-icon-radio"
+,"name": "单选框-选中"
+,"unicode": "#xe643"
+},
+{
+"font_class": "layui-icon-circle"
+,"name": "单选框-候选"
+,"unicode": "#xe63f"
+},
+{
+"font_class": "layui-icon-edit"
+,"name": "编辑"
+,"unicode": "#xe642"
+},
+{
+"font_class": "layui-icon-share"
+,"name": "分享"
+,"unicode": "#xe641"
+},
+{
+"font_class": "layui-icon-delete"
+,"name": "删除"
+,"unicode": "#xe640"
+},
+{
+"font_class": "layui-icon-form"
+,"name": "表单"
+,"unicode": "#xe63c"
+},
+{
+"font_class": "layui-icon-cellphone-fine"
+,"name": "手机-细体"
+,"unicode": "#xe63b"
+},
+{
+"font_class": "layui-icon-dialogue"
+,"name": "聊天 对话 沟通"
+,"unicode": "#xe63a"
+},
+{
+"font_class": "layui-icon-fonts-clear"
+,"name": "文字格式化"
+,"unicode": "#xe639"
+},
+{
+"font_class": "layui-icon-layer"
+,"name": "窗口"
+,"unicode": "#xe638"
+},
+{
+"font_class": "layui-icon-date"
+,"name": "日期"
+,"unicode": "#xe637"
+},
+{
+"font_class": "layui-icon-water"
+,"name": "水 下雨"
+,"unicode": "#xe636"
+},
+{
+"font_class": "layui-icon-code-circle"
+,"name": "代码-圆圈"
+,"unicode": "#xe635"
+},
+{
+"font_class": "layui-icon-carousel"
+,"name": "轮播组图"
+,"unicode": "#xe634"
+},
+{
+"font_class": "layui-icon-prev-circle"
+,"name": "翻页"
+,"unicode": "#xe633"
+},
+{
+"font_class": "layui-icon-layouts"
+,"name": "布局"
+,"unicode": "#xe632"
+},
+{
+"font_class": "layui-icon-util"
+,"name": "工具"
+,"unicode": "#xe631"
+},
+{
+"font_class": "layui-icon-templeate-1"
+,"name": "选择模板"
+,"unicode": "#xe630"
+},
+{
+"font_class": "layui-icon-upload-circle"
+,"name": "上传-圆圈"
+,"unicode": "#xe62f"
+},
+{
+"font_class": "layui-icon-tree"
+,"name": "树"
+,"unicode": "#xe62e"
+},
+{
+"font_class": "layui-icon-table"
+,"name": "表格"
+,"unicode": "#xe62d"
+},
+{
+"font_class": "layui-icon-chart"
+,"name": "图表"
+,"unicode": "#xe62c"
+},
+{
+"font_class": "layui-icon-chart-screen"
+,"name": "图标 报表 屏幕"
+,"unicode": "#xe629"
+},
+{
+"font_class": "layui-icon-engine"
+,"name": "引擎"
+,"unicode": "#xe628"
+},
+{
+"font_class": "layui-icon-triangle-d"
+,"name": "下三角"
+,"unicode": "#xe625"
+},
+{
+"font_class": "layui-icon-triangle-r"
+,"name": "右三角"
+,"unicode": "#xe623"
+},
+{
+"font_class": "layui-icon-file"
+,"name": "文件"
+,"unicode": "#xe621"
+},
+{
+"font_class": "layui-icon-set-sm"
+,"name": "设置-小型"
+,"unicode": "#xe620"
+},
+{
+"font_class": "layui-icon-reduce-circle"
+,"name": "减少-圆圈"
+,"unicode": "#xe616"
+},
+{
+"font_class": "layui-icon-add-circle"
+,"name": "添加-圆圈"
+,"unicode": "#xe61f"
+},
+{
+"font_class": "layui-icon-404"
+,"name": "404"
+,"unicode": "#xe61c"
+},
+{
+"font_class": "layui-icon-about"
+,"name": "关于"
+,"unicode": "#xe60b"
+},
+{
+"font_class": "layui-icon-up"
+,"name": "箭头 向上"
+,"unicode": "#xe619"
+},
+{
+"font_class": "layui-icon-down"
+,"name": "箭头 向下"
+,"unicode": "#xe61a"
+},
+{
+"font_class": "layui-icon-left"
+,"name": "箭头 向左"
+,"unicode": "#xe603"
+},
+{
+"font_class": "layui-icon-right"
+,"name": "箭头 向右"
+,"unicode": "#xe602"
+},
+{
+"font_class": "layui-icon-circle-dot"
+,"name": "圆点"
+,"unicode": "#xe617"
+},
+{
+"font_class": "layui-icon-search"
+,"name": "搜索"
+,"unicode": "#xe615"
+},
+{
+"font_class": "layui-icon-set-fill"
+,"name": "设置-实心"
+,"unicode": "#xe614"
+},
+{
+"font_class": "layui-icon-group"
+,"name": "群组"
+,"unicode": "#xe613"
+},
+{
+"font_class": "layui-icon-friends"
+,"name": "好友"
+,"unicode": "#xe612"
+},
+{
+"font_class": "layui-icon-reply-fill"
+,"name": "回复 评论 实心"
+,"unicode": "#xe611"
+},
+{
+"font_class": "layui-icon-menu-fill"
+,"name": "菜单 隐身 实心"
+,"unicode": "#xe60f"
+},
+{
+"font_class": "layui-icon-log"
+,"name": "记录"
+,"unicode": "#xe60e"
+},
+{
+"font_class": "layui-icon-picture-fine"
+,"name": "图片-细体"
+,"unicode": "#xe60d"
+},
+{
+"font_class": "layui-icon-face-smile-fine"
+,"name": "表情-笑-细体"
+,"unicode": "#xe60c"
+},
+{
+"font_class": "layui-icon-list"
+,"name": "列表"
+,"unicode": "#xe60a"
+},
+{
+"font_class": "layui-icon-release"
+,"name": "发布 纸飞机"
+,"unicode": "#xe609"
+},
+{
+"font_class": "layui-icon-ok"
+,"name": "对 OK"
+,"unicode": "#xe605"
+},
+{
+"font_class": "layui-icon-help"
+,"name": "帮助"
+,"unicode": "#xe607"
+},
+{
+"font_class": "layui-icon-chat"
+,"name": "客服"
+,"unicode": "#xe606"
+},
+{
+"font_class": "layui-icon-top"
+,"name": "top 置顶"
+,"unicode": "#xe604"
+},
+{
+"font_class": "layui-icon-star"
+,"name": "收藏-空心"
+,"unicode": "#xe600"
+},
+{
+"font_class": "layui-icon-star-fill"
+,"name": "收藏-实心"
+,"unicode": "#xe658"
+},
+{
+"font_class": "layui-icon-close-fill"
+,"name": "关闭-实心"
+,"unicode": "#x1007"
+},
+{
+"font_class": "layui-icon-close"
+,"name": "关闭-空心"
+,"unicode": "#x1006"
+},
+{
+"font_class": "layui-icon-ok-circle"
+,"name": "正确"
+,"unicode": "#x1005"
+},
+{
+"font_class": "layui-icon-add-circle-fine"
+,"name": "添加-圆圈-细体"
+,"unicode": "#xe608"
+}]

@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ContractMapper">
+  <resultMap id="BaseResultMap" type="com.model.Contract">
+    <id column="ct_id" jdbcType="INTEGER" property="ctId" />
+    <result column="ct_pid" jdbcType="INTEGER" property="ctPid" />
+    <result column="ct_level" jdbcType="TINYINT" property="ctLevel" />
+    <result column="ct_code" jdbcType="CHAR" property="ctCode" />
+    <result column="ct_name" jdbcType="VARCHAR" property="ctName" />
+    <result column="ct_unit" jdbcType="VARCHAR" property="ctUnit" />
+    <result column="ct_qty" jdbcType="DOUBLE" property="ctQty" />
+    <result column="ct_price" jdbcType="DOUBLE" property="ctPrice" />
+    <result column="ct_money" jdbcType="DOUBLE" property="ctMoney" />
+    <result column="ct_check" jdbcType="TINYINT" property="ctCheck" />
+    <result column="ct_fold" jdbcType="BIT" property="ctFold" />
+    <result column="ct_info" jdbcType="VARCHAR" property="ctInfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.ctId != null">
+        ct_id = #{record.ctId,jdbcType=INTEGER}
+      </if>
+      <if test="record.ctPid != null">
+        and ct_pid = #{record.ctPid,jdbcType=INTEGER}
+      </if>
+      <if test="record.ctLevel != null">
+        and ct_level = #{record.ctLevel,jdbcType=TINYINT}
+      </if>
+      <if test="record.ctCode != null">
+        and ct_code = #{record.ctCode,jdbcType=CHAR}
+      </if>
+      <if test="record.ctName != null">
+        and ct_name = #{record.ctName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.ctUnit != null">
+        and ct_unit = #{record.ctUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.ctQty != null">
+        and ct_qty = #{record.ctQty,jdbcType=DOUBLE}
+      </if>
+      <if test="record.ctPrice != null">
+        and ct_price = #{record.ctPrice,jdbcType=DOUBLE}
+      </if>
+      <if test="record.ctMoney != null">
+        and ct_money = #{record.ctMoney,jdbcType=DOUBLE}
+      </if>
+      <if test="record.ctCheck != null">
+        and ct_check = #{record.ctCheck,jdbcType=TINYINT}
+      </if>
+      <if test="record.ctFold != null">
+        and ct_fold = #{record.ctFold,jdbcType=BIT}
+      </if>
+      <if test="record.ctInfo != null">
+        and ct_info = #{record.ctInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.ctId != null">
+        ct_id like concat('%', #{record.ctId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.ctPid != null">
+        and ct_pid like concat('%', #{record.ctPid,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.ctLevel != null">
+        and ct_level like concat('%', #{record.ctLevel,jdbcType=TINYINT}, '%')
+      </if>
+      <if test="record.ctCode != null">
+        and ct_code like concat('%', #{record.ctCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.ctName != null">
+        and ct_name like concat('%', #{record.ctName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.ctUnit != null">
+        and ct_unit like concat('%', #{record.ctUnit,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.ctQty != null">
+        and ct_qty like concat('%', #{record.ctQty,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.ctPrice != null">
+        and ct_price like concat('%', #{record.ctPrice,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.ctMoney != null">
+        and ct_money like concat('%', #{record.ctMoney,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.ctCheck != null">
+        and ct_check like concat('%', #{record.ctCheck,jdbcType=TINYINT}, '%')
+      </if>
+      <if test="record.ctFold != null">
+        and ct_fold like concat('%', #{record.ctFold,jdbcType=BIT}, '%')
+      </if>
+      <if test="record.ctInfo != null">
+        and ct_info like concat('%', #{record.ctInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by ct_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by ct_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    ct_id, ct_pid, ct_level, ct_code, ct_name, ct_unit, ct_qty, ct_price, ct_money, ct_check, 
+    ct_fold, ct_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          ct_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.ContractExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_contract
+    where ct_id = #{ctId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_contract
+    where ct_id = (select min(ct_id) from tb_contract)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_contract
+    where ct_id = (select max(ct_id) from tb_contract)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_contract
+    where ct_id = #{ctId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.ContractExample">
+    delete from tb_contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.Contract">
+    insert into tb_contract (ct_id, ct_pid, ct_level,
+      ct_code, ct_name, ct_unit, 
+      ct_qty, ct_price, ct_money, 
+      ct_check, ct_fold, ct_info
+      )
+    values (#{ctId,jdbcType=INTEGER}, #{ctPid,jdbcType=INTEGER}, #{ctLevel,jdbcType=TINYINT}, 
+      #{ctCode,jdbcType=CHAR}, #{ctName,jdbcType=VARCHAR}, #{ctUnit,jdbcType=VARCHAR}, 
+      #{ctQty,jdbcType=DOUBLE}, #{ctPrice,jdbcType=DOUBLE}, #{ctMoney,jdbcType=DOUBLE}, 
+      #{ctCheck,jdbcType=TINYINT}, #{ctFold,jdbcType=BIT}, #{ctInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Contract">
+    insert into tb_contract
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ctId != null">
+        ct_id,
+      </if>
+      <if test="ctPid != null">
+        ct_pid,
+      </if>
+      <if test="ctLevel != null">
+        ct_level,
+      </if>
+      <if test="ctCode != null">
+        ct_code,
+      </if>
+      <if test="ctName != null">
+        ct_name,
+      </if>
+      <if test="ctUnit != null">
+        ct_unit,
+      </if>
+      <if test="ctQty != null">
+        ct_qty,
+      </if>
+      <if test="ctPrice != null">
+        ct_price,
+      </if>
+      <if test="ctMoney != null">
+        ct_money,
+      </if>
+      <if test="ctCheck != null">
+        ct_check,
+      </if>
+      <if test="ctFold != null">
+        ct_fold,
+      </if>
+      <if test="ctInfo != null">
+        ct_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ctId != null">
+        #{ctId,jdbcType=INTEGER},
+      </if>
+      <if test="ctPid != null">
+        #{ctPid,jdbcType=INTEGER},
+      </if>
+      <if test="ctLevel != null">
+        #{ctLevel,jdbcType=TINYINT},
+      </if>
+      <if test="ctCode != null">
+        #{ctCode,jdbcType=CHAR},
+      </if>
+      <if test="ctName != null">
+        #{ctName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctUnit != null">
+        #{ctUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="ctQty != null">
+        #{ctQty,jdbcType=DOUBLE},
+      </if>
+      <if test="ctPrice != null">
+        #{ctPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="ctMoney != null">
+        #{ctMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ctCheck != null">
+        #{ctCheck,jdbcType=TINYINT},
+      </if>
+      <if test="ctFold != null">
+        #{ctFold,jdbcType=BIT},
+      </if>
+      <if test="ctInfo != null">
+        #{ctInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.ContractExample" resultType="java.lang.Long">
+    select count(*) from tb_contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_contract
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_contract
+    <set>
+      <if test="record.ctId != null">
+        ct_id = #{record.ctId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ctPid != null">
+        ct_pid = #{record.ctPid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ctLevel != null">
+        ct_level = #{record.ctLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.ctCode != null">
+        ct_code = #{record.ctCode,jdbcType=CHAR},
+      </if>
+      <if test="record.ctName != null">
+        ct_name = #{record.ctName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctUnit != null">
+        ct_unit = #{record.ctUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctQty != null">
+        ct_qty = #{record.ctQty,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ctPrice != null">
+        ct_price = #{record.ctPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ctMoney != null">
+        ct_money = #{record.ctMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ctCheck != null">
+        ct_check = #{record.ctCheck,jdbcType=TINYINT},
+      </if>
+      <if test="record.ctFold != null">
+        ct_fold = #{record.ctFold,jdbcType=BIT},
+      </if>
+      <if test="record.ctInfo != null">
+        ct_info = #{record.ctInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_contract
+    set ct_id = #{record.ctId,jdbcType=INTEGER},
+      ct_pid = #{record.ctPid,jdbcType=INTEGER},
+      ct_level = #{record.ctLevel,jdbcType=TINYINT},
+      ct_code = #{record.ctCode,jdbcType=CHAR},
+      ct_name = #{record.ctName,jdbcType=VARCHAR},
+      ct_unit = #{record.ctUnit,jdbcType=VARCHAR},
+      ct_qty = #{record.ctQty,jdbcType=DOUBLE},
+      ct_price = #{record.ctPrice,jdbcType=DOUBLE},
+      ct_money = #{record.ctMoney,jdbcType=DOUBLE},
+      ct_check = #{record.ctCheck,jdbcType=TINYINT},
+      ct_fold = #{record.ctFold,jdbcType=BIT},
+      ct_info = #{record.ctInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Contract">
+    update tb_contract
+    <set>
+      <if test="ctPid != null">
+        ct_pid = #{ctPid,jdbcType=INTEGER},
+      </if>
+      <if test="ctLevel != null">
+        ct_level = #{ctLevel,jdbcType=TINYINT},
+      </if>
+      <if test="ctCode != null">
+        ct_code = #{ctCode,jdbcType=CHAR},
+      </if>
+      <if test="ctName != null">
+        ct_name = #{ctName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctUnit != null">
+        ct_unit = #{ctUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="ctQty != null">
+        ct_qty = #{ctQty,jdbcType=DOUBLE},
+      </if>
+      <if test="ctPrice != null">
+        ct_price = #{ctPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="ctMoney != null">
+        ct_money = #{ctMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ctCheck != null">
+        ct_check = #{ctCheck,jdbcType=TINYINT},
+      </if>
+      <if test="ctFold != null">
+        ct_fold = #{ctFold,jdbcType=BIT},
+      </if>
+      <if test="ctInfo != null">
+        ct_info = #{ctInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ct_id = #{ctId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Contract">
+    update tb_contract
+    set ct_pid = #{ctPid,jdbcType=INTEGER},
+      ct_level = #{ctLevel,jdbcType=TINYINT},
+      ct_code = #{ctCode,jdbcType=CHAR},
+      ct_name = #{ctName,jdbcType=VARCHAR},
+      ct_unit = #{ctUnit,jdbcType=VARCHAR},
+      ct_qty = #{ctQty,jdbcType=DOUBLE},
+      ct_price = #{ctPrice,jdbcType=DOUBLE},
+      ct_money = #{ctMoney,jdbcType=DOUBLE},
+      ct_check = #{ctCheck,jdbcType=TINYINT},
+      ct_fold = #{ctFold,jdbcType=BIT},
+      ct_info = #{ctInfo,jdbcType=VARCHAR}
+    where ct_id = #{ctId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_contract
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_contract
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_contract
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_contract
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_contract
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_contract
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_contract
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_contract
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_contract
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_contract
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_contract
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_contract
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_contract
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_contract
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_contract
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_contract
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

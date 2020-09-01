@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.QuantityMapper">
+  <resultMap id="BaseResultMap" type="com.model.Quantity">
+    <id column="qy_id" jdbcType="INTEGER" property="qyId" />
+    <result column="pi_id" jdbcType="INTEGER" property="piId" />
+    <result column="cl_id" jdbcType="INTEGER" property="clId" />
+    <result column="qy_code" jdbcType="CHAR" property="qyCode" />
+    <result column="pi_name" jdbcType="VARCHAR" property="piName" />
+    <result column="cl_code" jdbcType="CHAR" property="clCode" />
+    <result column="qy_date" jdbcType="TIMESTAMP" property="qyDate" />
+    <result column="qy_name" jdbcType="VARCHAR" property="qyName" />
+    <result column="qy_unit" jdbcType="VARCHAR" property="qyUnit" />
+    <result column="qy_do_design" jdbcType="DOUBLE" property="qyDoDesign" />
+    <result column="qy_do_change" jdbcType="DOUBLE" property="qyDoChange" />
+    <result column="qy_up_design" jdbcType="DOUBLE" property="qyUpDesign" />
+    <result column="qy_up_change" jdbcType="DOUBLE" property="qyUpChange" />
+    <result column="qy_down_design" jdbcType="DOUBLE" property="qyDownDesign" />
+    <result column="qy_down_change" jdbcType="DOUBLE" property="qyDownChange" />
+    <result column="qy_info" jdbcType="VARCHAR" property="qyInfo" />
+  </resultMap>
+  <resultMap id="BaseResultMapExtends" type="com.model.Quantity" extends="BaseResultMap">
+    <association property="partItem" javaType="com.model.PartItem"
+                 select="com.mapper.PartItemMapper.selectByPrimaryKey" column="pi_id">
+    </association>
+    <association property="costLayer" javaType="com.model.CostLayer"
+                 select="com.mapper.CostLayerMapper.selectByPrimaryKey" column="cl_id">
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.qyId != null">
+        qy_id = #{record.qyId,jdbcType=INTEGER}
+      </if>
+      <if test="record.piId != null">
+        and pi_id = #{record.piId,jdbcType=INTEGER}
+      </if>
+      <if test="record.qyCode != null">
+        and qy_code = #{record.qyCode,jdbcType=CHAR}
+      </if>
+      <if test="record.piName != null">
+        and pi_name = #{record.piName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.clId != null">
+        and cl_id = #{record.clId,jdbcType=INTEGER}
+      </if>
+      <if test="record.clCode != null">
+        and cl_code = #{record.clCode,jdbcType=CHAR}
+      </if>
+      <if test="record.qyDate != null">
+        and qy_date = #{record.qyDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.qyName != null">
+        and qy_name = #{record.qyName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.qyUnit != null">
+        and qy_unit = #{record.qyUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.qyDoDesign != null">
+        and qy_do_design = #{record.qyDoDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.qyDoChange != null">
+        and qy_do_change = #{record.qyDoChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.qyUpDesign != null">
+        and qy_up_design = #{record.qyUpDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.qyUpChange != null">
+        and qy_up_change = #{record.qyUpChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.qyDownDesign != null">
+        and qy_down_design = #{record.qyDownDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.qyDownChange != null">
+        and qy_down_change = #{record.qyDownChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.qyInfo != null">
+        and qy_info = #{record.qyInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.qyId != null">
+        qy_id like concat('%', #{record.qyId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piId != null">
+        and pi_id like concat('%', #{record.piId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.qyCode != null">
+        and qy_code like concat('%', #{record.qyCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.piName != null">
+        and pi_name like concat('%', #{record.piName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.clId != null">
+        and cl_id like concat('%', #{record.clId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.clCode != null">
+        and cl_code like concat('%', #{record.clCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.qyDate != null">
+        and qy_date like concat('%', #{record.qyDate,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.qyName != null">
+        and qy_name like concat('%', #{record.qyName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.qyUnit != null">
+        and qy_unit like concat('%', #{record.qyUnit,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.qyDoDesign != null">
+        and qy_do_design like concat('%', #{record.qyDoDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.qyDoChange != null">
+        and qy_do_change like concat('%', #{record.qyDoChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.qyUpDesign != null">
+        and qy_up_design like concat('%', #{record.qyUpDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.qyUpChange != null">
+        and qy_up_change like concat('%', #{record.qyUpChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.qyDownDesign != null">
+        and qy_down_design like concat('%', #{record.qyDownDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.qyDownChange != null">
+        and qy_down_change like concat('%', #{record.qyDownChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.qyInfo != null">
+        and qy_info like concat('%', #{record.qyInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by qy_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by qy_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    qy_id, pi_id, cl_id, qy_code, pi_name, cl_code, qy_date, qy_name, qy_unit, qy_do_design, 
+    qy_do_change, qy_up_design, qy_up_change, qy_down_design, qy_down_change, qy_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          qy_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.QuantityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapExtends">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    where qy_id = #{qyId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    where qy_id = (select min(qy_id) from tb_quantity)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    where qy_id = (select max(qy_id) from tb_quantity)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_quantity
+    where qy_id = #{qyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.QuantityExample">
+    delete from tb_quantity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="qy_id" keyProperty="qyId" parameterType="com.model.Quantity" useGeneratedKeys="true">
+    insert into tb_quantity (qy_id, pi_id, cl_id, qy_code,
+      pi_name, cl_code, qy_date, 
+      qy_name, qy_unit, qy_do_design, 
+      qy_do_change, qy_up_design, qy_up_change, 
+      qy_down_design, qy_down_change, qy_info
+      )
+    values (#{qyId,jdbcType=INTEGER}, #{piId,jdbcType=INTEGER}, #{clId,jdbcType=INTEGER}, #{qyCode,jdbcType=CHAR},
+      #{piName,jdbcType=VARCHAR}, #{clCode,jdbcType=CHAR}, #{qyDate,jdbcType=TIMESTAMP}, 
+      #{qyName,jdbcType=VARCHAR}, #{qyUnit,jdbcType=VARCHAR}, #{qyDoDesign,jdbcType=DOUBLE}, 
+      #{qyDoChange,jdbcType=DOUBLE}, #{qyUpDesign,jdbcType=DOUBLE}, #{qyUpChange,jdbcType=DOUBLE}, 
+      #{qyDownDesign,jdbcType=DOUBLE}, #{qyDownChange,jdbcType=DOUBLE}, #{qyInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="qy_id" keyProperty="qyId" parameterType="com.model.Quantity" useGeneratedKeys="true">
+    insert into tb_quantity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="qyId != null">
+        qy_id,
+      </if>
+      <if test="piId != null">
+        pi_id,
+      </if>
+      <if test="clId != null">
+        cl_id,
+      </if>
+      <if test="qyCode != null">
+        qy_code,
+      </if>
+      <if test="piName != null">
+        pi_name,
+      </if>
+      <if test="clCode != null">
+        cl_code,
+      </if>
+      <if test="qyDate != null">
+        qy_date,
+      </if>
+      <if test="qyName != null">
+        qy_name,
+      </if>
+      <if test="qyUnit != null">
+        qy_unit,
+      </if>
+      <if test="qyDoDesign != null">
+        qy_do_design,
+      </if>
+      <if test="qyDoChange != null">
+        qy_do_change,
+      </if>
+      <if test="qyUpDesign != null">
+        qy_up_design,
+      </if>
+      <if test="qyUpChange != null">
+        qy_up_change,
+      </if>
+      <if test="qyDownDesign != null">
+        qy_down_design,
+      </if>
+      <if test="qyDownChange != null">
+        qy_down_change,
+      </if>
+      <if test="qyInfo != null">
+        qy_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="qyId != null">
+        #{qyId,jdbcType=INTEGER},
+      </if>
+      <if test="piId != null">
+        #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="qyCode != null">
+        #{qyCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="qyDate != null">
+        #{qyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qyName != null">
+        #{qyName,jdbcType=VARCHAR},
+      </if>
+      <if test="qyUnit != null">
+        #{qyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="qyDoDesign != null">
+        #{qyDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="qyDoChange != null">
+        #{qyDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="qyUpDesign != null">
+        #{qyUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="qyUpChange != null">
+        #{qyUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="qyDownDesign != null">
+        #{qyDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="qyDownChange != null">
+        #{qyDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="qyInfo != null">
+        #{qyInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.QuantityExample" resultType="java.lang.Long">
+    select count(*) from tb_quantity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_quantity
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_quantity
+    <set>
+      <if test="record.qyId != null">
+        qy_id = #{record.qyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clId != null">
+        cl_id = #{record.clId,jdbcType=INTEGER},
+      </if>
+      <if test="record.qyCode != null">
+        qy_code = #{record.qyCode,jdbcType=CHAR},
+      </if>
+      <if test="record.piName != null">
+        pi_name = #{record.piName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clCode != null">
+        cl_code = #{record.clCode,jdbcType=CHAR},
+      </if>
+      <if test="record.qyDate != null">
+        qy_date = #{record.qyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.qyName != null">
+        qy_name = #{record.qyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qyUnit != null">
+        qy_unit = #{record.qyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qyDoDesign != null">
+        qy_do_design = #{record.qyDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.qyDoChange != null">
+        qy_do_change = #{record.qyDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.qyUpDesign != null">
+        qy_up_design = #{record.qyUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.qyUpChange != null">
+        qy_up_change = #{record.qyUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.qyDownDesign != null">
+        qy_down_design = #{record.qyDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.qyDownChange != null">
+        qy_down_change = #{record.qyDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.qyInfo != null">
+        qy_info = #{record.qyInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_quantity
+    set qy_id = #{record.qyId,jdbcType=INTEGER},
+      pi_id = #{record.piId,jdbcType=INTEGER},
+      cl_id = #{record.clId,jdbcType=INTEGER},
+      qy_code = #{record.qyCode,jdbcType=CHAR},
+      pi_name = #{record.piName,jdbcType=VARCHAR},
+      cl_code = #{record.clCode,jdbcType=CHAR},
+      qy_date = #{record.qyDate,jdbcType=TIMESTAMP},
+      qy_name = #{record.qyName,jdbcType=VARCHAR},
+      qy_unit = #{record.qyUnit,jdbcType=VARCHAR},
+      qy_do_design = #{record.qyDoDesign,jdbcType=DOUBLE},
+      qy_do_change = #{record.qyDoChange,jdbcType=DOUBLE},
+      qy_up_design = #{record.qyUpDesign,jdbcType=DOUBLE},
+      qy_up_change = #{record.qyUpChange,jdbcType=DOUBLE},
+      qy_down_design = #{record.qyDownDesign,jdbcType=DOUBLE},
+      qy_down_change = #{record.qyDownChange,jdbcType=DOUBLE},
+      qy_info = #{record.qyInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Quantity">
+    update tb_quantity
+    <set>
+      <if test="piId != null">
+        pi_id = #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        cl_id = #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="qyCode != null">
+        qy_code = #{qyCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        pi_name = #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        cl_code = #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="qyDate != null">
+        qy_date = #{qyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qyName != null">
+        qy_name = #{qyName,jdbcType=VARCHAR},
+      </if>
+      <if test="qyUnit != null">
+        qy_unit = #{qyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="qyDoDesign != null">
+        qy_do_design = #{qyDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="qyDoChange != null">
+        qy_do_change = #{qyDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="qyUpDesign != null">
+        qy_up_design = #{qyUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="qyUpChange != null">
+        qy_up_change = #{qyUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="qyDownDesign != null">
+        qy_down_design = #{qyDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="qyDownChange != null">
+        qy_down_change = #{qyDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="qyInfo != null">
+        qy_info = #{qyInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where qy_id = #{qyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Quantity">
+    update tb_quantity
+    set pi_id = #{piId,jdbcType=INTEGER},
+      cl_id = #{clId,jdbcType=INTEGER},
+      qy_code = #{qyCode,jdbcType=CHAR},
+      pi_name = #{piName,jdbcType=VARCHAR},
+      cl_code = #{clCode,jdbcType=CHAR},
+      qy_date = #{qyDate,jdbcType=TIMESTAMP},
+      qy_name = #{qyName,jdbcType=VARCHAR},
+      qy_unit = #{qyUnit,jdbcType=VARCHAR},
+      qy_do_design = #{qyDoDesign,jdbcType=DOUBLE},
+      qy_do_change = #{qyDoChange,jdbcType=DOUBLE},
+      qy_up_design = #{qyUpDesign,jdbcType=DOUBLE},
+      qy_up_change = #{qyUpChange,jdbcType=DOUBLE},
+      qy_down_design = #{qyDownDesign,jdbcType=DOUBLE},
+      qy_down_change = #{qyDownChange,jdbcType=DOUBLE},
+      qy_info = #{qyInfo,jdbcType=VARCHAR}
+    where qy_id = #{qyId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_quantity
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_quantity
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_quantity
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_quantity
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_quantity
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_quantity
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_quantity
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_quantity
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_quantity
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_quantity
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_quantity
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CompanyMapper">
+  <resultMap id="BaseResultMap" type="com.model.Company">
+    <id column="cy_id" jdbcType="INTEGER" property="cyId" />
+    <result column="cy_name" jdbcType="VARCHAR" property="cyName" />
+    <result column="cy_level" jdbcType="VARCHAR" property="cyLevel" />
+    <result column="cy_leader" jdbcType="VARCHAR" property="cyLeader" />
+    <result column="cy_type" jdbcType="VARCHAR" property="cyType" />
+    <result column="cy_scale" jdbcType="TINYINT" property="cyScale" />
+    <result column="cy_score" jdbcType="DOUBLE" property="cyScore" />
+    <result column="cy_project" jdbcType="VARCHAR" property="cyProject" />
+    <result column="cy_number" jdbcType="TINYINT" property="cyNumber" />
+    <result column="cy_info" jdbcType="VARCHAR" property="cyInfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.cyId != null">
+        cy_id = #{record.cyId,jdbcType=INTEGER}
+      </if>
+      <if test="record.cyName != null">
+        and cy_name = #{record.cyName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.cyLevel != null">
+        and cy_level = #{record.cyLevel,jdbcType=VARCHAR}
+      </if>
+      <if test="record.cyLeader != null">
+        and cy_leader = #{record.cyLeader,jdbcType=VARCHAR}
+      </if>
+      <if test="record.cyType != null">
+        and cy_type = #{record.cyType,jdbcType=VARCHAR}
+      </if>
+      <if test="record.cyScale != null">
+        and cy_scale = #{record.cyScale,jdbcType=TINYINT}
+      </if>
+      <if test="record.cyScore != null">
+        and cy_score = #{record.cyScore,jdbcType=DOUBLE}
+      </if>
+      <if test="record.cyProject != null">
+        and cy_project = #{record.cyProject,jdbcType=VARCHAR}
+      </if>
+      <if test="record.cyNumber != null">
+        and cy_number = #{record.cyNumber,jdbcType=TINYINT}
+      </if>
+      <if test="record.cyInfo != null">
+        and cy_info = #{record.cyInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.cyId != null">
+        cy_id like concat('%', #{record.cyId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.cyName != null">
+        and cy_name like concat('%', #{record.cyName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.cyLevel != null">
+        and cy_level like concat('%', #{record.cyLevel,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.cyLeader != null">
+        and cy_leader like concat('%', #{record.cyLeader,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.cyType != null">
+        and cy_type like concat('%', #{record.cyType,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.cyScale != null">
+        and cy_scale like concat('%', #{record.cyScale,jdbcType=TINYINT}, '%')
+      </if>
+      <if test="record.cyScore != null">
+        and cy_score like concat('%', #{record.cyScore,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.cyProject != null">
+        and cy_project like concat('%', #{record.cyProject,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.cyNumber != null">
+        and cy_number like concat('%', #{record.cyNumber,jdbcType=TINYINT}, '%')
+      </if>
+      <if test="record.cyInfo != null">
+        and cy_info like concat('%', #{record.cyInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by cy_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by cy_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    cy_id, cy_name, cy_level, cy_leader, cy_type, cy_scale, cy_score, cy_project, cy_number, 
+    cy_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          cy_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.CompanyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_company
+    where cy_id = #{cyId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_company
+    where cy_id = (select min(cy_id) from tb_company)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_company
+    where cy_id = (select max(cy_id) from tb_company)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_company
+    where cy_id = #{cyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.CompanyExample">
+    delete from tb_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="cy_id" keyProperty="cyId" parameterType="com.model.Company" useGeneratedKeys="true">
+    insert into tb_company (cy_id, cy_name, cy_level, cy_leader,
+      cy_type, cy_scale, cy_score, cy_project, cy_number, cy_info
+      )
+    values (#{cyId,jdbcType=INTEGER}, #{cyName,jdbcType=VARCHAR}, #{cyLevel,jdbcType=VARCHAR}, #{cyLeader,jdbcType=VARCHAR},
+      #{cyType,jdbcType=VARCHAR}, #{cyScale,jdbcType=TINYINT}, #{cyScore,jdbcType=DOUBLE}, 
+      #{cyProject,jdbcType=VARCHAR}, #{cyNumber,jdbcType=TINYINT}, #{cyInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="cy_id" keyProperty="cyId" parameterType="com.model.Company" useGeneratedKeys="true">
+    insert into tb_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cyId != null">
+        cy_id,
+      </if>
+      <if test="cyName != null">
+        cy_name,
+      </if>
+      <if test="cyLevel != null">
+        cy_level,
+      </if>
+      <if test="cyLeader != null">
+        cy_leader,
+      </if>
+      <if test="cyType != null">
+        cy_type,
+      </if>
+      <if test="cyScale != null">
+        cy_scale,
+      </if>
+      <if test="cyScore != null">
+        cy_score,
+      </if>
+      <if test="cyProject != null">
+        cy_project,
+      </if>
+      <if test="cyNumber != null">
+        cy_number,
+      </if>
+      <if test="cyInfo != null">
+        cy_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cyId != null">
+        #{cyId,jdbcType=INTEGER},
+      </if>
+      <if test="cyName != null">
+        #{cyName,jdbcType=VARCHAR},
+      </if>
+      <if test="cyLevel != null">
+        #{cyLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cyLeader != null">
+        #{cyLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="cyType != null">
+        #{cyType,jdbcType=VARCHAR},
+      </if>
+      <if test="cyScale != null">
+        #{cyScale,jdbcType=TINYINT},
+      </if>
+      <if test="cyScore != null">
+        #{cyScore,jdbcType=DOUBLE},
+      </if>
+      <if test="cyProject != null">
+        #{cyProject,jdbcType=VARCHAR},
+      </if>
+      <if test="cyNumber != null">
+        #{cyNumber,jdbcType=TINYINT},
+      </if>
+      <if test="cyInfo != null">
+        #{cyInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.CompanyExample" resultType="java.lang.Long">
+    select count(*) from tb_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_company
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_company
+    <set>
+      <if test="record.cyId != null">
+        cy_id = #{record.cyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cyName != null">
+        cy_name = #{record.cyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cyLevel != null">
+        cy_level = #{record.cyLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cyLeader != null">
+        cy_leader = #{record.cyLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cyType != null">
+        cy_type = #{record.cyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cyScale != null">
+        cy_scale = #{record.cyScale,jdbcType=TINYINT},
+      </if>
+      <if test="record.cyScore != null">
+        cy_score = #{record.cyScore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cyProject != null">
+        cy_project = #{record.cyProject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cyNumber != null">
+        cy_number = #{record.cyNumber,jdbcType=TINYINT},
+      </if>
+      <if test="record.cyInfo != null">
+        cy_info = #{record.cyInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_company
+    set cy_id = #{record.cyId,jdbcType=INTEGER},
+      cy_name = #{record.cyName,jdbcType=VARCHAR},
+      cy_level = #{record.cyLevel,jdbcType=VARCHAR},
+      cy_leader = #{record.cyLeader,jdbcType=VARCHAR},
+      cy_type = #{record.cyType,jdbcType=VARCHAR},
+      cy_scale = #{record.cyScale,jdbcType=TINYINT},
+      cy_score = #{record.cyScore,jdbcType=DOUBLE},
+      cy_project = #{record.cyProject,jdbcType=VARCHAR},
+      cy_number = #{record.cyNumber,jdbcType=TINYINT},
+      cy_info = #{record.cyInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Company">
+    update tb_company
+    <set>
+      <if test="cyName != null">
+        cy_name = #{cyName,jdbcType=VARCHAR},
+      </if>
+      <if test="cyLevel != null">
+        cy_level = #{cyLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cyLeader != null">
+        cy_leader = #{cyLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="cyType != null">
+        cy_type = #{cyType,jdbcType=VARCHAR},
+      </if>
+      <if test="cyScale != null">
+        cy_scale = #{cyScale,jdbcType=TINYINT},
+      </if>
+      <if test="cyScore != null">
+        cy_score = #{cyScore,jdbcType=DOUBLE},
+      </if>
+      <if test="cyProject != null">
+        cy_project = #{cyProject,jdbcType=VARCHAR},
+      </if>
+      <if test="cyNumber != null">
+        cy_number = #{cyNumber,jdbcType=TINYINT},
+      </if>
+      <if test="cyInfo != null">
+        cy_info = #{cyInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cy_id = #{cyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Company">
+    update tb_company
+    set cy_name = #{cyName,jdbcType=VARCHAR},
+      cy_level = #{cyLevel,jdbcType=VARCHAR},
+      cy_leader = #{cyLeader,jdbcType=VARCHAR},
+      cy_type = #{cyType,jdbcType=VARCHAR},
+      cy_scale = #{cyScale,jdbcType=TINYINT},
+      cy_score = #{cyScore,jdbcType=DOUBLE},
+      cy_project = #{cyProject,jdbcType=VARCHAR},
+      cy_number = #{cyNumber,jdbcType=TINYINT},
+      cy_info = #{cyInfo,jdbcType=VARCHAR}
+    where cy_id = #{cyId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_company
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_company
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_company
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_company
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_company
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_company
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_company
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_company
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_company
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_company
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_company
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_company
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_company
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_company
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_company
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_company
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

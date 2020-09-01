@@ -17,6 +17,7 @@ public class DynamicItem implements Comparable<DynamicItem> {
     private String value;
     private Double time;
     private String timeString;
+    private String timeHmsString;
     private Integer flag;
 
     public String typeConvert(Integer type) {
@@ -29,6 +30,10 @@ public class DynamicItem implements Comparable<DynamicItem> {
 
     public String timeConvert(Double time) {
         return new ExcelDateWriteConverter().strDate(time);
+    }
+
+    public String timeConvert(Double time, String format) {
+        return new ExcelDateWriteConverter().strDate(time, format);
     }
 
     public Double timeConvert(String timeString) {
@@ -45,6 +50,7 @@ public class DynamicItem implements Comparable<DynamicItem> {
         this.value = value;
         this.time = time;
         this.timeString = timeConvert(this.time);
+        this.timeHmsString = timeConvert(time, "HH:mm:ss");
         this.flag = 0;
     }
 
@@ -54,15 +60,17 @@ public class DynamicItem implements Comparable<DynamicItem> {
         this.value = value;
         this.time = timeConvert(timeString);
         this.timeString = timeString;
+        this.timeHmsString = timeConvert(time, "HH:mm:ss");
         this.flag = 0;
     }
 
-    public DynamicItem(Integer type, String typeOption, String value, Double time, String timeString) {
+    public DynamicItem(Integer type, String typeOption, String value, Double time, String timeString, String timeHmsString) {
         this.type = type;
         this.typeOption = typeOption;
         this.value = value;
         this.time = time;
         this.timeString = timeString;
+        this.timeHmsString = timeHmsString;
         this.flag = 0;
     }
 
@@ -99,6 +107,7 @@ public class DynamicItem implements Comparable<DynamicItem> {
     public void setTime(Double time) {
         this.time = time;
         this.timeString = timeConvert(this.time);
+        this.timeHmsString = timeConvert(time, "HH:mm:ss");
     }
 
     public String getTimeString() {
@@ -108,6 +117,15 @@ public class DynamicItem implements Comparable<DynamicItem> {
     public void setTimeString(String timeString) {
         this.timeString = timeString;
         this.time = timeConvert(this.timeString);
+        this.timeHmsString = timeConvert(time, "HH:mm:ss");
+    }
+
+    public String getTimeHmsString() {
+        return timeHmsString;
+    }
+
+    public void setTimeHmsString(String timeHmsString) {
+        this.timeHmsString = timeHmsString;
     }
 
     public Integer getFlag() {
@@ -132,12 +150,13 @@ public class DynamicItem implements Comparable<DynamicItem> {
                 Objects.equals(value, that.value) &&
                 Objects.equals(time, that.time) &&
                 Objects.equals(timeString, that.timeString) &&
+                Objects.equals(timeHmsString, that.timeHmsString) &&
                 Objects.equals(flag, that.flag);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, typeOption, value, time, timeString, flag);
+        return Objects.hash(type, typeOption, value, time, timeString, timeHmsString, flag);
     }
 
     @Override
@@ -148,6 +167,7 @@ public class DynamicItem implements Comparable<DynamicItem> {
         sb.append(", value='").append(value).append('\'');
         sb.append(", time=").append(time);
         sb.append(", timeString='").append(timeString).append('\'');
+        sb.append(", timeHmsString='").append(timeString).append('\'');
         sb.append(", flag=").append(flag);
         sb.append('}');
         return sb.toString();

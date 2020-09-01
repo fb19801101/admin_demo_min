@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.EquipmentMapper">
+  <resultMap id="BaseResultMap" type="com.model.Equipment">
+    <id column="et_id" jdbcType="INTEGER" property="etId" />
+    <result column="pi_id" jdbcType="INTEGER" property="piId" />
+    <result column="cl_id" jdbcType="INTEGER" property="clId" />
+    <result column="et_code" jdbcType="CHAR" property="etCode" />
+    <result column="pi_name" jdbcType="VARCHAR" property="piName" />
+    <result column="cl_code" jdbcType="CHAR" property="clCode" />
+    <result column="et_date" jdbcType="TIMESTAMP" property="etDate" />
+    <result column="et_name" jdbcType="VARCHAR" property="etName" />
+    <result column="et_unit" jdbcType="VARCHAR" property="etUnit" />
+    <result column="et_do_design" jdbcType="DOUBLE" property="etDoDesign" />
+    <result column="et_do_change" jdbcType="DOUBLE" property="etDoChange" />
+    <result column="et_up_design" jdbcType="DOUBLE" property="etUpDesign" />
+    <result column="et_up_change" jdbcType="DOUBLE" property="etUpChange" />
+    <result column="et_down_design" jdbcType="DOUBLE" property="etDownDesign" />
+    <result column="et_down_change" jdbcType="DOUBLE" property="etDownChange" />
+    <result column="et_info" jdbcType="VARCHAR" property="etInfo" />
+  </resultMap>
+  <resultMap id="BaseResultMapExtends" type="com.model.Equipment" extends="BaseResultMap">
+    <association property="partItem" javaType="com.model.PartItem"
+                 select="com.mapper.PartItemMapper.selectByPrimaryKey" column="pi_id">
+    </association>
+    <association property="costLayer" javaType="com.model.CostLayer"
+                 select="com.mapper.CostLayerMapper.selectByPrimaryKey" column="cl_id">
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.etId != null">
+        et_id = #{record.etId,jdbcType=INTEGER}
+      </if>
+      <if test="record.piId != null">
+        and pi_id = #{record.piId,jdbcType=INTEGER}
+      </if>
+      <if test="record.etCode != null">
+        and et_code = #{record.etCode,jdbcType=CHAR}
+      </if>
+      <if test="record.piName != null">
+        and pi_name = #{record.piName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.clId != null">
+        and cl_id = #{record.clId,jdbcType=INTEGER}
+      </if>
+      <if test="record.clCode != null">
+        and cl_code = #{record.clCode,jdbcType=CHAR}
+      </if>
+      <if test="record.etDate != null">
+        and et_date = #{record.etDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.etName != null">
+        and et_name = #{record.etName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.etUnit != null">
+        and et_unit = #{record.etUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.etDoDesign != null">
+        and et_do_design = #{record.etDoDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.etDoChange != null">
+        and et_do_change = #{record.etDoChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.etUpDesign != null">
+        and et_up_design = #{record.etUpDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.etUpChange != null">
+        and et_up_change = #{record.etUpChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.etDownDesign != null">
+        and et_down_design = #{record.etDownDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.etDownChange != null">
+        and et_down_change = #{record.etDownChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.etInfo != null">
+        and et_info = #{record.etInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.etId != null">
+        et_id like concat('%', #{record.etId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piId != null">
+        and pi_id like concat('%', #{record.piId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.etCode != null">
+        and et_code like concat('%', #{record.etCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.piName != null">
+        and pi_name like concat('%', #{record.piName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.clId != null">
+        and cl_id like concat('%', #{record.clId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.clCode != null">
+        and cl_code like concat('%', #{record.clCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.etDate != null">
+        and et_date like concat('%', #{record.etDate,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.etName != null">
+        and et_name like concat('%', #{record.etName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.etUnit != null">
+        and et_unit like concat('%', #{record.etUnit,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.etDoDesign != null">
+        and et_do_design like concat('%', #{record.etDoDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.etDoChange != null">
+        and et_do_change like concat('%', #{record.etDoChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.etUpDesign != null">
+        and et_up_design like concat('%', #{record.etUpDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.etUpChange != null">
+        and et_up_change like concat('%', #{record.etUpChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.etDownDesign != null">
+        and et_down_design like concat('%', #{record.etDownDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.etDownChange != null">
+        and et_down_change like concat('%', #{record.etDownChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.etInfo != null">
+        and et_info like concat('%', #{record.etInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by et_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by et_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    et_id, pi_id, cl_id, et_code, pi_name, cl_code, et_date, et_name, et_unit, et_do_design, 
+    et_do_change, et_up_design, et_up_change, et_down_design, et_down_change, et_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          et_id is null
+        </otherwise>
+      </choose>
+    </where>
+  </sql>
+  <select id="selectByExample" parameterType="com.model.EquipmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapExtends">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    where et_id = #{etId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    where et_id = (select min(et_id) from tb_equipment)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    where et_id = (select max(et_id) from tb_equipment)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_equipment
+    where et_id = #{etId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.EquipmentExample">
+    delete from tb_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="et_id" keyProperty="etId" parameterType="com.model.Equipment" useGeneratedKeys="true">
+    insert into tb_equipment (et_id, pi_id, cl_id, et_code,
+      pi_name, cl_code, et_date, 
+      et_name, et_unit, et_do_design, 
+      et_do_change, et_up_design, et_up_change, 
+      et_down_design, et_down_change, et_info
+      )
+    values (#{etId,jdbcType=INTEGER}, #{piId,jdbcType=INTEGER}, #{clId,jdbcType=INTEGER}, #{etCode,jdbcType=CHAR},
+      #{piName,jdbcType=VARCHAR}, #{clCode,jdbcType=CHAR}, #{etDate,jdbcType=TIMESTAMP}, 
+      #{etName,jdbcType=VARCHAR}, #{etUnit,jdbcType=VARCHAR}, #{etDoDesign,jdbcType=DOUBLE}, 
+      #{etDoChange,jdbcType=DOUBLE}, #{etUpDesign,jdbcType=DOUBLE}, #{etUpChange,jdbcType=DOUBLE}, 
+      #{etDownDesign,jdbcType=DOUBLE}, #{etDownChange,jdbcType=DOUBLE}, #{etInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="et_id" keyProperty="etId" parameterType="com.model.Equipment" useGeneratedKeys="true">
+    insert into tb_equipment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="etId != null">
+        et_id,
+      </if>
+      <if test="piId != null">
+        pi_id,
+      </if>
+      <if test="clId != null">
+        cl_id,
+      </if>
+      <if test="etCode != null">
+        et_code,
+      </if>
+      <if test="piName != null">
+        pi_name,
+      </if>
+      <if test="clCode != null">
+        cl_code,
+      </if>
+      <if test="etDate != null">
+        et_date,
+      </if>
+      <if test="etName != null">
+        et_name,
+      </if>
+      <if test="etUnit != null">
+        et_unit,
+      </if>
+      <if test="etDoDesign != null">
+        et_do_design,
+      </if>
+      <if test="etDoChange != null">
+        et_do_change,
+      </if>
+      <if test="etUpDesign != null">
+        et_up_design,
+      </if>
+      <if test="etUpChange != null">
+        et_up_change,
+      </if>
+      <if test="etDownDesign != null">
+        et_down_design,
+      </if>
+      <if test="etDownChange != null">
+        et_down_change,
+      </if>
+      <if test="etInfo != null">
+        et_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="etId != null">
+        #{etId,jdbcType=INTEGER},
+      </if>
+      <if test="piId != null">
+        #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="etCode != null">
+        #{etCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="etDate != null">
+        #{etDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="etName != null">
+        #{etName,jdbcType=VARCHAR},
+      </if>
+      <if test="etUnit != null">
+        #{etUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="etDoDesign != null">
+        #{etDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="etDoChange != null">
+        #{etDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="etUpDesign != null">
+        #{etUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="etUpChange != null">
+        #{etUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="etDownDesign != null">
+        #{etDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="etDownChange != null">
+        #{etDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="etInfo != null">
+        #{etInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.EquipmentExample" resultType="java.lang.Long">
+    select count(*) from tb_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_equipment
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_equipment
+    <set>
+      <if test="record.etId != null">
+        et_id = #{record.etId,jdbcType=INTEGER},
+      </if>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clId != null">
+        cl_id = #{record.clId,jdbcType=INTEGER},
+      </if>
+      <if test="record.etCode != null">
+        et_code = #{record.etCode,jdbcType=CHAR},
+      </if>
+      <if test="record.piName != null">
+        pi_name = #{record.piName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clCode != null">
+        cl_code = #{record.clCode,jdbcType=CHAR},
+      </if>
+      <if test="record.etDate != null">
+        et_date = #{record.etDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.etName != null">
+        et_name = #{record.etName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.etUnit != null">
+        et_unit = #{record.etUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.etDoDesign != null">
+        et_do_design = #{record.etDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.etDoChange != null">
+        et_do_change = #{record.etDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.etUpDesign != null">
+        et_up_design = #{record.etUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.etUpChange != null">
+        et_up_change = #{record.etUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.etDownDesign != null">
+        et_down_design = #{record.etDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.etDownChange != null">
+        et_down_change = #{record.etDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.etInfo != null">
+        et_info = #{record.etInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_equipment
+    set et_id = #{record.etId,jdbcType=INTEGER},
+      pi_id = #{record.piId,jdbcType=INTEGER},
+      cl_id = #{record.clId,jdbcType=INTEGER},
+      et_code = #{record.etCode,jdbcType=CHAR},
+      pi_name = #{record.piName,jdbcType=VARCHAR},
+      cl_code = #{record.clCode,jdbcType=CHAR},
+      et_date = #{record.etDate,jdbcType=TIMESTAMP},
+      et_name = #{record.etName,jdbcType=VARCHAR},
+      et_unit = #{record.etUnit,jdbcType=VARCHAR},
+      et_do_design = #{record.etDoDesign,jdbcType=DOUBLE},
+      et_do_change = #{record.etDoChange,jdbcType=DOUBLE},
+      et_up_design = #{record.etUpDesign,jdbcType=DOUBLE},
+      et_up_change = #{record.etUpChange,jdbcType=DOUBLE},
+      et_down_design = #{record.etDownDesign,jdbcType=DOUBLE},
+      et_down_change = #{record.etDownChange,jdbcType=DOUBLE},
+      et_info = #{record.etInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Equipment">
+    update tb_equipment
+    <set>
+      <if test="piId != null">
+        pi_id = #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        cl_id = #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="etCode != null">
+        et_code = #{etCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        pi_name = #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        cl_code = #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="etDate != null">
+        et_date = #{etDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="etName != null">
+        et_name = #{etName,jdbcType=VARCHAR},
+      </if>
+      <if test="etUnit != null">
+        et_unit = #{etUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="etDoDesign != null">
+        et_do_design = #{etDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="etDoChange != null">
+        et_do_change = #{etDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="etUpDesign != null">
+        et_up_design = #{etUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="etUpChange != null">
+        et_up_change = #{etUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="etDownDesign != null">
+        et_down_design = #{etDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="etDownChange != null">
+        et_down_change = #{etDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="etInfo != null">
+        et_info = #{etInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where et_id = #{etId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Equipment">
+    update tb_equipment
+    set pi_id = #{piId,jdbcType=INTEGER},
+      cl_id = #{clId,jdbcType=INTEGER},
+      et_code = #{etCode,jdbcType=CHAR},
+      pi_name = #{piName,jdbcType=VARCHAR},
+      cl_code = #{clCode,jdbcType=CHAR},
+      et_date = #{etDate,jdbcType=TIMESTAMP},
+      et_name = #{etName,jdbcType=VARCHAR},
+      et_unit = #{etUnit,jdbcType=VARCHAR},
+      et_do_design = #{etDoDesign,jdbcType=DOUBLE},
+      et_do_change = #{etDoChange,jdbcType=DOUBLE},
+      et_up_design = #{etUpDesign,jdbcType=DOUBLE},
+      et_up_change = #{etUpChange,jdbcType=DOUBLE},
+      et_down_design = #{etDownDesign,jdbcType=DOUBLE},
+      et_down_change = #{etDownChange,jdbcType=DOUBLE},
+      et_info = #{etInfo,jdbcType=VARCHAR}
+    where et_id = #{etId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_equipment
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_equipment
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_equipment
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_equipment
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_equipment
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_equipment
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_equipment
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_equipment
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_equipment
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_equipment
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>

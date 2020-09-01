@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.IndirectMapper">
+  <resultMap id="BaseResultMap" type="com.model.Indirect">
+    <id column="it_id" jdbcType="INTEGER" property="itId" />
+    <result column="pi_id" jdbcType="INTEGER" property="piId" />
+    <result column="cl_id" jdbcType="INTEGER" property="clId" />
+    <result column="it_code" jdbcType="CHAR" property="itCode" />
+    <result column="pi_name" jdbcType="VARCHAR" property="piName" />
+    <result column="cl_code" jdbcType="CHAR" property="clCode" />
+    <result column="it_date" jdbcType="TIMESTAMP" property="itDate" />
+    <result column="it_name" jdbcType="VARCHAR" property="itName" />
+    <result column="it_unit" jdbcType="VARCHAR" property="itUnit" />
+    <result column="it_do_design" jdbcType="DOUBLE" property="itDoDesign" />
+    <result column="it_do_change" jdbcType="DOUBLE" property="itDoChange" />
+    <result column="it_up_design" jdbcType="DOUBLE" property="itUpDesign" />
+    <result column="it_up_change" jdbcType="DOUBLE" property="itUpChange" />
+    <result column="it_down_design" jdbcType="DOUBLE" property="itDownDesign" />
+    <result column="it_down_change" jdbcType="DOUBLE" property="itDownChange" />
+    <result column="it_info" jdbcType="VARCHAR" property="itInfo" />
+  </resultMap>
+  <resultMap id="BaseResultMapExtends" type="com.model.Indirect" extends="BaseResultMap">
+    <association property="partItem" javaType="com.model.PartItem"
+                 select="com.mapper.PartItemMapper.selectByPrimaryKey" column="pi_id">
+    </association>
+    <association property="costLayer" javaType="com.model.CostLayer"
+                 select="com.mapper.CostLayerMapper.selectByPrimaryKey" column="cl_id">
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Where_Clause">
+    <where>
+      <if test="record.itId != null">
+        it_id = #{record.itId,jdbcType=INTEGER}
+      </if>
+      <if test="record.piId != null">
+        and pi_id = #{record.piId,jdbcType=INTEGER}
+      </if>
+      <if test="record.itCode != null">
+        and it_code = #{record.itCode,jdbcType=CHAR}
+      </if>
+      <if test="record.piName != null">
+        and pi_name = #{record.piName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.clId != null">
+        and cl_id = #{record.clId,jdbcType=INTEGER}
+      </if>
+      <if test="record.clCode != null">
+        and cl_code = #{record.clCode,jdbcType=CHAR}
+      </if>
+      <if test="record.itDate != null">
+        and it_date = #{record.itDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="record.itName != null">
+        and it_name = #{record.itName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.itUnit != null">
+        and it_unit = #{record.itUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.itDoDesign != null">
+        and it_do_design = #{record.itDoDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.itDoChange != null">
+        and it_do_change = #{record.itDoChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.itUpDesign != null">
+        and it_up_design = #{record.itUpDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.itUpChange != null">
+        and it_up_change = #{record.itUpChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.itDownDesign != null">
+        and it_down_design = #{record.itDownDesign,jdbcType=DOUBLE}
+      </if>
+      <if test="record.itDownChange != null">
+        and it_down_change = #{record.itDownChange,jdbcType=DOUBLE}
+      </if>
+      <if test="record.itInfo != null">
+        and it_info = #{record.itInfo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Query_Clause">
+    <where>
+      <if test="record.itId != null">
+        it_id like concat('%', #{record.itId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.piId != null">
+        and pi_id like concat('%', #{record.piId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.itCode != null">
+        and it_code like concat('%', #{record.itCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.piName != null">
+        and pi_name like concat('%', #{record.piName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.clId != null">
+        and cl_id like concat('%', #{record.clId,jdbcType=INTEGER}, '%')
+      </if>
+      <if test="record.clCode != null">
+        and cl_code like concat('%', #{record.clCode,jdbcType=CHAR}, '%')
+      </if>
+      <if test="record.itDate != null">
+        and it_date like concat('%', #{record.itDate,jdbcType=TIMESTAMP}, '%')
+      </if>
+      <if test="record.itName != null">
+        and it_name like concat('%', #{record.itName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.itUnit != null">
+        and it_unit like concat('%', #{record.itUnit,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="record.itDoDesign != null">
+        and it_do_design like concat('%', #{record.itDoDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.itDoChange != null">
+        and it_do_change like concat('%', #{record.itDoChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.itUpDesign != null">
+        and it_up_design like concat('%', #{record.itUpDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.itUpChange != null">
+        and it_up_change like concat('%', #{record.itUpChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.itDownDesign != null">
+        and it_down_design like concat('%', #{record.itDownDesign,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.itDownChange != null">
+        and it_down_change like concat('%', #{record.itDownChange,jdbcType=DOUBLE}, '%')
+      </if>
+      <if test="record.itInfo != null">
+        and it_info like concat('%', #{record.itInfo,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <sql id="Model_Clause_Offset">
+    <if test="_parameter != null and _parameter.containsKey('limit') and limit != null">
+      <choose>
+        <when test="_parameter.containsKey('offset') and offset != null">
+          order by it_id asc limit #{offset}, #{limit};
+        </when>
+        <otherwise>
+          order by it_id asc limit  #{limit};
+        </otherwise>
+      </choose>
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    it_id, pi_id, cl_id, it_code, pi_name, cl_code, it_date, it_name, it_unit, it_do_design, 
+    it_do_change, it_up_design, it_up_change, it_down_design, it_down_change, it_info
+  </sql>
+  <sql id="Param_Column_List">
+    <choose>
+      <when test="_parameter.containsKey('fields') and fields != null">
+        ${fields}
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+  </sql>
+  <sql id="Param_Where_Clause_Like">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} like concat('%', #{value}, '%')
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Equal">
+    <if test="_parameter != null and _parameter.containsKey('field') and field != null">
+      <where>
+        <if test="_parameter.containsKey('value') and value != null">
+          ${field} = #{value}
+        </if>
+        <if test="_parameter.containsKey('value1') and _parameter.containsKey('value2')">
+          <if test="value1 != null and value2 != null">
+            ${field} between #{value1} and #{value2}
+          </if>
+        </if>
+      </where>
+      <if test="_parameter.containsKey('limit') and limit != null">
+        <choose>
+          <when test="_parameter.containsKey('offset') and offset != null">
+            order by ${field} asc limit #{offset}, #{limit};
+          </when>
+          <otherwise>
+            order by ${field} asc limit  #{limit};
+          </otherwise>
+        </choose>
+      </if>
+    </if>
+  </sql>
+  <sql id="Param_Where_Clause_Sql">
+    <where>
+      <choose>
+        <when test="_parameter != null and _parameter.containsKey('sql') and sql != null">
+          ${sql}
+        </when>
+        <otherwise>
+          it_id is null
+        </otherwise>
+      </choose>
+    </where>
+    <include refid="Model_Clause_Offset" />
+  </sql>
+  <select id="selectByExample" parameterType="com.model.IndirectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapExtends">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    where it_id = #{itId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMinPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    where it_id = (select min(it_id) from tb_indirect)
+  </select>
+  <select id="selectByMaxPrimaryKey" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    where it_id = (select max(it_id) from tb_indirect)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_indirect
+    where it_id = #{itId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.IndirectExample">
+    delete from tb_indirect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="it_id" keyProperty="itId" parameterType="com.model.Indirect" useGeneratedKeys="true">
+    insert into tb_indirect (it_id, pi_id, cl_id, it_code,
+      pi_name, cl_code, it_date, 
+      it_name, it_unit, it_do_design, 
+      it_do_change, it_up_design, it_up_change, 
+      it_down_design, it_down_change, it_info
+      )
+    values (#{itId,jdbcType=INTEGER}, #{piId,jdbcType=INTEGER}, #{clId,jdbcType=INTEGER}, #{itCode,jdbcType=CHAR},
+      #{piName,jdbcType=VARCHAR}, #{clCode,jdbcType=CHAR}, #{itDate,jdbcType=TIMESTAMP}, 
+      #{itName,jdbcType=VARCHAR}, #{itUnit,jdbcType=VARCHAR}, #{itDoDesign,jdbcType=DOUBLE}, 
+      #{itDoChange,jdbcType=DOUBLE}, #{itUpDesign,jdbcType=DOUBLE}, #{itUpChange,jdbcType=DOUBLE}, 
+      #{itDownDesign,jdbcType=DOUBLE}, #{itDownChange,jdbcType=DOUBLE}, #{itInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="it_id" keyProperty="itId" parameterType="com.model.Indirect" useGeneratedKeys="true">
+    insert into tb_indirect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itId != null">
+        it_id,
+      </if>
+      <if test="piId != null">
+        pi_id,
+      </if>
+      <if test="clId != null">
+        cl_id,
+      </if>
+      <if test="itCode != null">
+        it_code,
+      </if>
+      <if test="piName != null">
+        pi_name,
+      </if>
+      <if test="clCode != null">
+        cl_code,
+      </if>
+      <if test="itDate != null">
+        it_date,
+      </if>
+      <if test="itName != null">
+        it_name,
+      </if>
+      <if test="itUnit != null">
+        it_unit,
+      </if>
+      <if test="itDoDesign != null">
+        it_do_design,
+      </if>
+      <if test="itDoChange != null">
+        it_do_change,
+      </if>
+      <if test="itUpDesign != null">
+        it_up_design,
+      </if>
+      <if test="itUpChange != null">
+        it_up_change,
+      </if>
+      <if test="itDownDesign != null">
+        it_down_design,
+      </if>
+      <if test="itDownChange != null">
+        it_down_change,
+      </if>
+      <if test="itInfo != null">
+        it_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itId != null">
+        #{itId,jdbcType=INTEGER},
+      </if>
+      <if test="piId != null">
+        #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="itCode != null">
+        #{itCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="itDate != null">
+        #{itDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itName != null">
+        #{itName,jdbcType=VARCHAR},
+      </if>
+      <if test="itUnit != null">
+        #{itUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="itDoDesign != null">
+        #{itDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="itDoChange != null">
+        #{itDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="itUpDesign != null">
+        #{itUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="itUpChange != null">
+        #{itUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="itDownDesign != null">
+        #{itDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="itDownChange != null">
+        #{itDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="itInfo != null">
+        #{itInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.IndirectExample" resultType="java.lang.Long">
+    select count(*) from tb_indirect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByModel" parameterType="com.model.Guidance" resultType="java.lang.Long">
+    select count(*) from tb_indirect
+    <if test="_parameter != null">
+      <include refid="Model_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_indirect
+    <set>
+      <if test="record.itId != null">
+        it_id = #{record.itId,jdbcType=INTEGER},
+      </if>
+      <if test="record.piId != null">
+        pi_id = #{record.piId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clId != null">
+        cl_id = #{record.clId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itCode != null">
+        it_code = #{record.itCode,jdbcType=CHAR},
+      </if>
+      <if test="record.piName != null">
+        pi_name = #{record.piName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clCode != null">
+        cl_code = #{record.clCode,jdbcType=CHAR},
+      </if>
+      <if test="record.itDate != null">
+        it_date = #{record.itDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.itName != null">
+        it_name = #{record.itName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itUnit != null">
+        it_unit = #{record.itUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itDoDesign != null">
+        it_do_design = #{record.itDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itDoChange != null">
+        it_do_change = #{record.itDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itUpDesign != null">
+        it_up_design = #{record.itUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itUpChange != null">
+        it_up_change = #{record.itUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itDownDesign != null">
+        it_down_design = #{record.itDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itDownChange != null">
+        it_down_change = #{record.itDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itInfo != null">
+        it_info = #{record.itInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_indirect
+    set it_id = #{record.itId,jdbcType=INTEGER},
+      pi_id = #{record.piId,jdbcType=INTEGER},
+      cl_id = #{record.clId,jdbcType=INTEGER},
+      it_code = #{record.itCode,jdbcType=CHAR},
+      pi_name = #{record.piName,jdbcType=VARCHAR},
+      cl_code = #{record.clCode,jdbcType=CHAR},
+      it_date = #{record.itDate,jdbcType=TIMESTAMP},
+      it_name = #{record.itName,jdbcType=VARCHAR},
+      it_unit = #{record.itUnit,jdbcType=VARCHAR},
+      it_do_design = #{record.itDoDesign,jdbcType=DOUBLE},
+      it_do_change = #{record.itDoChange,jdbcType=DOUBLE},
+      it_up_design = #{record.itUpDesign,jdbcType=DOUBLE},
+      it_up_change = #{record.itUpChange,jdbcType=DOUBLE},
+      it_down_design = #{record.itDownDesign,jdbcType=DOUBLE},
+      it_down_change = #{record.itDownChange,jdbcType=DOUBLE},
+      it_info = #{record.itInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Indirect">
+    update tb_indirect
+    <set>
+      <if test="piId != null">
+        pi_id = #{piId,jdbcType=INTEGER},
+      </if>
+      <if test="clId != null">
+        cl_id = #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="itCode != null">
+        it_code = #{itCode,jdbcType=CHAR},
+      </if>
+      <if test="piName != null">
+        pi_name = #{piName,jdbcType=VARCHAR},
+      </if>
+      <if test="clCode != null">
+        cl_code = #{clCode,jdbcType=CHAR},
+      </if>
+      <if test="itDate != null">
+        it_date = #{itDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itName != null">
+        it_name = #{itName,jdbcType=VARCHAR},
+      </if>
+      <if test="itUnit != null">
+        it_unit = #{itUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="itDoDesign != null">
+        it_do_design = #{itDoDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="itDoChange != null">
+        it_do_change = #{itDoChange,jdbcType=DOUBLE},
+      </if>
+      <if test="itUpDesign != null">
+        it_up_design = #{itUpDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="itUpChange != null">
+        it_up_change = #{itUpChange,jdbcType=DOUBLE},
+      </if>
+      <if test="itDownDesign != null">
+        it_down_design = #{itDownDesign,jdbcType=DOUBLE},
+      </if>
+      <if test="itDownChange != null">
+        it_down_change = #{itDownChange,jdbcType=DOUBLE},
+      </if>
+      <if test="itInfo != null">
+        it_info = #{itInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where it_id = #{itId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Indirect">
+    update tb_indirect
+    set pi_id = #{piId,jdbcType=INTEGER},
+      cl_id = #{clId,jdbcType=INTEGER},
+      it_code = #{itCode,jdbcType=CHAR},
+      pi_name = #{piName,jdbcType=VARCHAR},
+      cl_code = #{clCode,jdbcType=CHAR},
+      it_date = #{itDate,jdbcType=TIMESTAMP},
+      it_name = #{itName,jdbcType=VARCHAR},
+      it_unit = #{itUnit,jdbcType=VARCHAR},
+      it_do_design = #{itDoDesign,jdbcType=DOUBLE},
+      it_do_change = #{itDoChange,jdbcType=DOUBLE},
+      it_up_design = #{itUpDesign,jdbcType=DOUBLE},
+      it_up_change = #{itUpChange,jdbcType=DOUBLE},
+      it_down_design = #{itDownDesign,jdbcType=DOUBLE},
+      it_down_change = #{itDownChange,jdbcType=DOUBLE},
+      it_info = #{itInfo,jdbcType=VARCHAR}
+    where it_id = #{itId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllModel" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    <include refid="Model_Clause_Offset" />
+  </select>
+  <select id="countAllModel" resultType="java.lang.Long">
+    select count(*) from tb_indirect
+  </select>
+  <select id="selectByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="countBySelectParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_indirect
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryByParam" parameterType="map" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="countByQueryParam" parameterType="map" resultType="java.lang.Long">
+    select count(*) from tb_indirect
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="countBySelectCondition" resultType="java.lang.Long">
+    select count(*) from tb_indirect
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMapExtends">
+    select
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="countByQueryCondition" resultType="java.lang.Long">
+    select count(*) from tb_indirect
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_indirect
+    <include refid="Model_Where_Clause" />
+  </select>
+  <select id="queryFieldsByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_indirect
+    <include refid="Model_Query_Clause" />
+  </select>
+  <select id="selectFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_indirect
+    <include refid="Param_Where_Clause_Equal" />
+  </select>
+  <select id="queryFieldsByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Param_Column_List" />
+    from tb_indirect
+    <include refid="Param_Where_Clause_Like" />
+  </select>
+  <select id="selectBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from tb_indirect
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+  <select id="selectFieldsBySql" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Param_Column_List" />
+    from tb_indirect
+    <include refid="Param_Where_Clause_Sql" />
+  </select>
+</mapper>
